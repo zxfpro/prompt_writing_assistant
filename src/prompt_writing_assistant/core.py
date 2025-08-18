@@ -2,7 +2,7 @@
 Author: 823042332@qq.com 823042332@qq.com
 Date: 2025-08-07 17:53:03
 LastEditors: 823042332@qq.com 823042332@qq.com
-LastEditTime: 2025-08-07 18:00:48
+LastEditTime: 2025-08-18 11:21:31
 FilePath: /prompt_writing_assistant/src/prompt_writing_assistant/core.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -35,26 +35,32 @@ system_prompt = """
 """
 
 from llmada.core import BianXieAdapter
+import os
 
 class EditPrompt:
-    def __init__(self,py_path):
-        self.py_path = py_path
+    def __init__(self,prompt_path,init_prompt = "",model_name = "gemini-2.5-flash-preview-05-20-nothinking"):
+        self.prompt_path = prompt_path
         self.bx = BianXieAdapter()
-        model_name = "gemini-2.5-flash-preview-05-20-nothinking"
         self.bx.model_pool.append(model_name)
         self.bx.set_model(model_name=model_name)
+        if os.path.exists(prompt_path):
+            with open(prompt_path,'w') as f:
+                f.write(init_prompt)
 
     def edit(self,function_requirement:str):
         # 最小改动代码原则
-        with open(self.py_path,'r') as f:
+        with open(self.prompt_path,'r') as f:
             code = f.read()
         prompt = system_prompt.format(source_code=code,function_requirement=function_requirement)
 
         response = self.bx.product(prompt)
-        with open(self.py_path,'w') as f:
+        with open(self.prompt_path,'w') as f:
             f.write(response)
-        print(f"已保存到{self.py_path}")
+        print(f"已保存到{self.prompt_path}")
 
     def get_prompt(self):
-        with open(self.py_path,'r') as f:
+        with open(self.prompt_path,'r') as f:
             return f.read()
+
+
+            
