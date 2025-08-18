@@ -2,7 +2,7 @@
 Author: 823042332@qq.com 823042332@qq.com
 Date: 2025-08-07 17:53:03
 LastEditors: 823042332@qq.com 823042332@qq.com
-LastEditTime: 2025-08-07 17:59:34
+LastEditTime: 2025-08-07 18:00:48
 FilePath: /prompt_writing_assistant/src/prompt_writing_assistant/core.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -55,3 +55,6 @@ class EditPrompt:
             f.write(response)
         print(f"已保存到{self.py_path}")
 
+    def get_prompt(self):
+        with open(self.py_path,'r') as f:
+            return f.read()
