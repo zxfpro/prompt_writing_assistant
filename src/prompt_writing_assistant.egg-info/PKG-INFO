@@ -5,4 +5,5 @@ Summary: Add your description here
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 Requires-Dist: llmada>=1.0.5
+Requires-Dist: pytest>=8.4.1
 Requires-Dist: toml==0.10.2
