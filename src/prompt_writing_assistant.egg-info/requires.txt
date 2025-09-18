@@ -1,3 +1,6 @@
+anyio>=4.10.0
 llmada>=1.0.5
 pytest>=8.4.1
+pytest-asyncio>=1.1.0
+pytest-tornasync>=0.6.0.post2
 toml==0.10.2

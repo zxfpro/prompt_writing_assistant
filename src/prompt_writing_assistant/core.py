@@ -1,13 +1,9 @@
-'''
-Author: 823042332@qq.com 823042332@qq.com
-Date: 2025-08-07 17:53:03
-LastEditors: 823042332@qq.com 823042332@qq.com
-LastEditTime: 2025-08-18 11:21:31
-FilePath: /prompt_writing_assistant/src/prompt_writing_assistant/core.py
-Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
-'''
+# 测试1
 
-system_prompt = """
+from llmada.core import BianXieAdapter
+import os
+
+change_by_opinion_prompt = """
 你是一个资深AI提示词工程师，具备卓越的Prompt设计与优化能力。
 我将为你提供一段现有System Prompt。你的核心任务是基于这段Prompt进行修改，以实现我提出的特定目标和功能需求。
 请你绝对严格地遵循以下原则：
@@ -28,39 +24,46 @@ system_prompt = """
  在你开始之前，请务必确认你已理解并能绝对严格地遵守这些原则。任何未经明确指令的改动都将视为未能完成任务。
 
 现有System Prompt:
-{source_code}
+{old_system_prompt}
 
 功能需求:
-{function_requirement}
+{opinion}
 """
 
-from llmada.core import BianXieAdapter
-import os
+model_name = "gemini-2.5-flash-preview-05-20-nothinking"
+bx = BianXieAdapter()
+bx.model_pool.append(model_name)
+bx.set_model(model_name=model_name)
 
-class EditPrompt:
-    def __init__(self,prompt_path,init_prompt = "",model_name = "gemini-2.5-flash-preview-05-20-nothinking"):
-        self.prompt_path = prompt_path
-        self.bx = BianXieAdapter()
-        self.bx.model_pool.append(model_name)
-        self.bx.set_model(model_name=model_name)
-        if os.path.exists(prompt_path):
-            with open(prompt_path,'w') as f:
-                f.write(init_prompt)
+def prompt_writer(inputs:str,opinion:str = '',prompt_file:str = "base.prompt",
+                  ):   
+    """
+    # 000111
+    根据输入让大模型返回输出, 
+    用户可以通过opinion来调整大模型的表现 使其进入训练模式
+    当到达稳定以后, 不再对opinion 输入
+    该函数就会改为推理模式
+    最终可以从文件中获得提示词,
+    """
+    # 文件是否存在
+    if os.path.exists(prompt_file):
+        # read
+        with open(prompt_file,'r') as f:
+            prompt = f.read()
+    else:
+        # create
+        prompt = "只是一个提示词"
+        
+    if opinion:
+        new_system_prompt = bx.product(change_by_opinion_prompt.format(old_system_prompt = prompt,
+                                                                      opinion = opinion))
+        with open(prompt_file,'w') as f:
+            f.write(new_system_prompt)
+        prompt = new_system_prompt
 
-    def edit(self,function_requirement:str):
-        # 最小改动代码原则
-        with open(self.prompt_path,'r') as f:
-            code = f.read()
-        prompt = system_prompt.format(source_code=code,function_requirement=function_requirement)
-
-        response = self.bx.product(prompt)
-        with open(self.prompt_path,'w') as f:
-            f.write(response)
-        print(f"已保存到{self.prompt_path}")
-
-    def get_prompt(self):
-        with open(self.prompt_path,'r') as f:
-            return f.read()
-
-
-            
+    output = bx.product(prompt + inputs)
+    return output
+    
+def get_prompt(prompt_file):
+    with open(prompt_file,'r') as f:
+        return f.read()

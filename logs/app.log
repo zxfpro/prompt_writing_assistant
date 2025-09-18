@@ -1,0 +1,4 @@
+2025-09-10 18:00:03,067 - INFO - root - client:38 - request running
+2025-09-10 18:00:03,074 - DEBUG - urllib3.connectionpool - connectionpool:1049 - Starting new HTTPS connection (1): api.bianxie.ai:443
+2025-09-10 18:00:09,609 - DEBUG - urllib3.connectionpool - connectionpool:544 - https://api.bianxie.ai:443 "POST /v1/chat/completions HTTP/1.1" 200 687
+2025-09-10 18:00:09,611 - DEBUG - root - client:42 - 6.5435402393341064
