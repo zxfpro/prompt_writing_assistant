@@ -2,6 +2,17 @@
 
 from llmada.core import BianXieAdapter
 import os
+import functools
+import json
+from prompt_writing_assistant.utils import extract_json
+from prompt_writing_assistant.prompts import evals_prompt
+
+
+model_name = "gemini-2.5-flash-preview-05-20-nothinking"
+bx = BianXieAdapter()
+bx.model_pool.append(model_name)
+bx.set_model(model_name=model_name)
+
 
 change_by_opinion_prompt = """
 你是一个资深AI提示词工程师，具备卓越的Prompt设计与优化能力。
@@ -30,16 +41,16 @@ change_by_opinion_prompt = """
 {opinion}
 """
 
-model_name = "gemini-2.5-flash-preview-05-20-nothinking"
-bx = BianXieAdapter()
-bx.model_pool.append(model_name)
-bx.set_model(model_name=model_name)
 
-def prompt_writer(inputs:str,opinion:str = '',prompt_file:str = "base.prompt",
-                  ):   
+def prompt_finetune(
+    inputs: str,
+    opinion: str = "",
+    prompt_file: str = "base.prompt",
+):
     """
     # 000111
-    根据输入让大模型返回输出, 
+    让大模型微调已经存在的system_prompt
+
     用户可以通过opinion来调整大模型的表现 使其进入训练模式
     当到达稳定以后, 不再对opinion 输入
     该函数就会改为推理模式
@@ -48,22 +59,151 @@ def prompt_writer(inputs:str,opinion:str = '',prompt_file:str = "base.prompt",
     # 文件是否存在
     if os.path.exists(prompt_file):
         # read
-        with open(prompt_file,'r') as f:
+        with open(prompt_file, "r") as f:
             prompt = f.read()
     else:
         # create
         prompt = "只是一个提示词"
-        
+
     if opinion:
-        new_system_prompt = bx.product(change_by_opinion_prompt.format(old_system_prompt = prompt,
-                                                                      opinion = opinion))
-        with open(prompt_file,'w') as f:
+        new_system_prompt = bx.product(
+            change_by_opinion_prompt.format(old_system_prompt=prompt, opinion=opinion)
+        )
+        with open(prompt_file, "w") as f:
             f.write(new_system_prompt)
         prompt = new_system_prompt
 
     output = bx.product(prompt + inputs)
     return output
-    
-def get_prompt(prompt_file):
-    with open(prompt_file,'r') as f:
-        return f.read()
+
+
+def get_prompts_from_sql():
+    pass
+
+
+def get_prompt(prompt_id: str) -> (str, int):
+    # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
+    # 读取
+    main_path = "."
+    prompt_file = os.path.join(main_path, f"{prompt_id}.txt")
+    if not os.path.exists(prompt_file):
+        with open(prompt_file, "w") as f:
+            f.write("")
+        return "", 0
+    else:
+        with open(prompt_file, "r") as f:
+            prompt = f.read()
+        return prompt, 1
+
+
+def save_prompt(prompt_id: str, new_prompt: str):
+    # 存储
+    main_path = "."
+    prompt_file = os.path.join(main_path, f"{prompt_id}.txt")
+    with open(prompt_file, "w") as f:
+        f.write(new_prompt)
+
+
+from enum import Enum
+
+
+class IntellectType(Enum):
+    train = "train"
+    inference = "inference"
+    summary = "summary"
+
+
+# TODO 1 可以增加cache 来节省token
+# TODO 2 自动优化prompt 并提升稳定性, 并测试
+def intellect(level: str, prompt_id: str, demand: str = None):
+    """
+    #train ,inference ,总结,
+    这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
+
+    """
+    system_prompt_created_prompt = """
+    很棒, 我们已经达成了某种默契, 我们之间合作无间, 但是, 可悲的是, 当我关闭这个窗口的时候, 你就会忘记我们之间经历的种种磨合, 这是可惜且心痛的, 所以你能否将目前这一套处理流程结晶成一个优质的prompt 这样, 我们下一次只要将prompt输入, 你就能想起我们今天的磨合过程,
+对了,我提示一点, 这个prompt的主角是你, 也就是说, 你在和未来的你对话, 你要教会未来的你今天这件事, 是否让我看懂到时其次
+    """
+
+    def outer_packing(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            # 修改逻辑
+            arg_list = list(args)
+            input_ = arg_list[0]
+
+            #######
+            output_ = input_
+
+            # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
+            prompt, states = get_prompt(prompt_id)
+
+            if level.value == "train":
+                # 注意, 这里的调整要求使用最初的那个输入, 最好一口气调整好
+                if states == 0:
+                    input_prompt = prompt + "\nuser:" + demand + "\n" + input_
+                elif states == 1:
+                    input_prompt = prompt + "\nuser:" + demand
+                ai_result = bx.product(input_prompt)
+                new_prompt = input_prompt + "\nassistant:" + ai_result
+                save_prompt(prompt_id, new_prompt)
+                output_ = ai_result
+
+            elif level.value == "summary":
+                if states == 1:
+                    system_reuslt = bx.product(prompt + system_prompt_created_prompt)
+                    save_prompt(prompt_id, system_reuslt)
+                    print("successful ")
+
+                else:
+                    raise AssertionError("必须要已经存在一个prompt 否则无法总结")
+
+            elif level.value == "inference":
+                if states == 1:
+                    ai_result = bx.product(prompt + input_)
+                    output_ = ai_result
+                else:
+                    raise AssertionError("必须要已经存在一个prompt 否则无法总结")
+
+            #######
+            arg_list[0] = output_
+            args = set(arg_list)
+            # 完成修改
+            result = func(*args, **kwargs)
+
+            return result
+
+        return wrapper
+
+    return outer_packing
+
+
+############evals##############
+
+
+def evals(
+    _input: list[str],
+    llm_output: list[str],
+    person_output: list[str],
+    rule: str,
+    pass_if: str,
+) -> "eval_result-str, eval_reason-str":
+    result = bx.product(
+        evals_prompt.format(
+            评分规则=rule,
+            输入案例=_input,
+            大模型生成内容=llm_output,
+            人类基准=person_output,
+            通过条件=pass_if,
+        )
+    )
+    #  eval_result,eval_reason
+    # TODO
+    """
+    "passes": "<是否通过, True or False>",
+    "reason": "<如果不通过, 基于驳回理由>",
+    "suggestions_on_revision": 
+    """
+    result = json.loads(extract_json(result))
+    return result.get("passes"), result.get("suggestions_on_revision")

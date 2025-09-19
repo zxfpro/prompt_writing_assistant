@@ -219,8 +219,8 @@ def replace_whole_section(text, new_content=""):
 
 # 使用
 
-from prompt_writing_assistant.unit import extract_python
-from prompt_writing_assistant.unit import extract_curl
+from prompt_writing_assistant.utils import extract_python
+from prompt_writing_assistant.utils import extract_curl
 
 
 
@@ -272,7 +272,7 @@ tt = pd.read_csv('cvs.csv')
 import json
 from llmada.core import BianXieAdapter
 import re
-from prompt_writing_assistant.unit import extract_json, extract_python
+from prompt_writing_assistant.utils import extract_json, extract_python
 
 
 system_prompt = '''
@@ -374,7 +374,7 @@ async def {core_function}_server({request_model}):
 
 from pydantic import BaseModel, Field, ValidationError
 from typing import Optional
-from prompt_writing_assistant.unit import extract_json_multi
+from prompt_writing_assistant.utils import extract_json_multi
 
 class PostDict(BaseModel):
     """
