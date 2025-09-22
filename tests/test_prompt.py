@@ -30,15 +30,6 @@ def test_prompt_finetune():
 
     super_print(output,"test_prompt_writer")
 
-# 这是一种结构, 必须通过的结构, 
-@pytest.mark.parametrize("input1, input2, input3",[
-    ("我喜欢这样",1,2),
-    ("我喜欢这样",1,2),
-    ("我喜欢这样",1,2),
-                         ])
-def test_prompt_stablely(input1, input2, input3):
-    print(input1,input2, input3)
-
 
 
 

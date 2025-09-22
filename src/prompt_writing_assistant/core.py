@@ -269,6 +269,73 @@ def intellect(level: str, prompt_id: str, demand: str = None):
     return outer_packing
 
 
+def aintellect(level: str, prompt_id: str, demand: str = None):
+    """
+    #train ,inference ,总结,
+    这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
+
+    """
+    system_prompt_created_prompt = """
+    很棒, 我们已经达成了某种默契, 我们之间合作无间, 但是, 可悲的是, 当我关闭这个窗口的时候, 你就会忘记我们之间经历的种种磨合, 这是可惜且心痛的, 所以你能否将目前这一套处理流程结晶成一个优质的prompt 这样, 我们下一次只要将prompt输入, 你就能想起我们今天的磨合过程,
+对了,我提示一点, 这个prompt的主角是你, 也就是说, 你在和未来的你对话, 你要教会未来的你今天这件事, 是否让我看懂到时其次
+    """
+
+    def outer_packing(func):
+        @functools.wraps(func)
+        async def wrapper(*args, **kwargs):
+            # 修改逻辑
+            arg_list = list(args)
+            input_ = arg_list[0]
+
+            #######
+            output_ = input_
+
+            # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
+            # prompt, states = get_prompt(prompt_id)
+            prompt, states = get_prompts_from_sql(prompt_id)
+
+
+            if level.value == "train":
+                # 注意, 这里的调整要求使用最初的那个输入, 最好一口气调整好
+                if states == 0:
+                    input_prompt = prompt + "\nuser:" + demand + "\n" + input_
+                elif states == 1:
+                    input_prompt = prompt + "\nuser:" + demand
+                ai_result = await bx.aproduct(input_prompt)
+                new_prompt = input_prompt + "\nassistant:" + ai_result
+                save_prompt_by_sql(prompt_id, new_prompt)
+                # save_prompt(prompt_id, new_prompt)
+                output_ = ai_result
+
+            elif level.value == "summary":
+                if states == 1:
+                    system_reuslt = await bx.aproduct(prompt + system_prompt_created_prompt)
+                    # save_prompt(prompt_id, system_reuslt)
+                    save_prompt_by_sql(prompt_id, system_reuslt)
+                    print("successful ")
+
+                else:
+                    raise AssertionError("必须要已经存在一个prompt 否则无法总结")
+
+            elif level.value == "inference":
+                if states == 1:
+                    ai_result = await bx.aproduct(prompt + input_)
+                    output_ = ai_result
+                else:
+                    raise AssertionError("必须要已经存在一个prompt 否则无法总结")
+
+            #######
+            arg_list[0] = output_
+            args = set(arg_list)
+            # 完成修改
+            result = func(*args, **kwargs)
+
+            return result
+
+        return wrapper
+
+    return outer_packing
+
 ############evals##############
 
 
