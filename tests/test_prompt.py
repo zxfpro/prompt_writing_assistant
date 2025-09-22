@@ -7,12 +7,14 @@ from prompt_writing_assistant.core import intellect,IntellectType
 
 # 半自动编写/优化提示词
 def test_work():
-    @intellect(IntellectType.inference,"1231231","改为使用$符号")
+    @intellect(IntellectType.train,"1231231","改为使用$符号")
     def prompts(input_):
         # 可以直接输出, 也可以编写后处理的逻辑 extract_json 等
         return input_
 
     prompts("你好, 我的电话号码是12343213123, 身份证是2454532345")
+
+
 
 def test_prompt_finetune():
     """

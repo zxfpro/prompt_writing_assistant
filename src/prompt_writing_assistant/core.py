@@ -6,6 +6,7 @@ import functools
 import json
 from prompt_writing_assistant.utils import extract_json
 from prompt_writing_assistant.prompts import evals_prompt
+from datetime import datetime
 
 
 model_name = "gemini-2.5-flash-preview-05-20-nothinking"
@@ -76,9 +77,46 @@ def prompt_finetune(
     output = bx.product(prompt + inputs)
     return output
 
+from db_help.mysql import MySQLManager
 
-def get_prompts_from_sql():
-    pass
+def get_prompts_from_sql(prompt_id: str) -> (str, int):
+    DB_HOST = "127.0.0.1"
+    DB_USER = "root"
+    DB_PASSWORD = "1234" # 替换为你的 MySQL root 密码
+    DB_NAME = "prompts"
+
+    table_name = "prompts_data"
+    db_manager = MySQLManager(DB_HOST, DB_USER, DB_PASSWORD, database=DB_NAME)
+
+    def get_latest_prompt_version(target_prompt_id):
+        """
+        获取指定 prompt_id 的最新版本数据，通过创建时间判断。
+        """
+        query = f"""
+            SELECT id, prompt_id, version, timestamp, prompt
+            FROM {table_name}
+            WHERE prompt_id = %s
+            ORDER BY timestamp DESC, version DESC -- 如果时间相同，再按version降序排
+            LIMIT 1
+        """
+        result = db_manager.execute_query(query, params=(target_prompt_id,), fetch_one=True)
+        if result:
+            print(f"找到 prompt_id '{target_prompt_id}' 的最新版本 (基于时间): {result['version']}")
+        else:
+            print(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
+        return result
+    
+    user_by_id_1 = get_latest_prompt_version(prompt_id)
+    if user_by_id_1:
+        prompt = user_by_id_1.get("prompt")
+        status = 1
+    else:
+        save_prompt_by_sql(prompt_id, "")
+        prompt = ""
+        status = 0
+
+    return prompt, status
+
 
 
 def get_prompt(prompt_id: str) -> (str, int):
@@ -96,12 +134,60 @@ def get_prompt(prompt_id: str) -> (str, int):
         return prompt, 1
 
 
+def save_prompt_by_sql(prompt_id: str, new_prompt: str):
+    # 存储
+    DB_HOST = "127.0.0.1"
+    DB_USER = "root"
+    DB_PASSWORD = "1234" # 替换为你的 MySQL root 密码
+    DB_NAME = "prompts"
+    table_name = "prompts_data"
+    db_manager = MySQLManager(DB_HOST, DB_USER, DB_PASSWORD, database=DB_NAME)
+
+    def get_latest_prompt_version(target_prompt_id):
+        """
+        获取指定 prompt_id 的最新版本数据，通过创建时间判断。
+        """
+        query = f"""
+            SELECT id, prompt_id, version, timestamp, prompt
+            FROM {table_name}
+            WHERE prompt_id = %s
+            ORDER BY timestamp DESC, version DESC -- 如果时间相同，再按version降序排
+            LIMIT 1
+        """
+        result = db_manager.execute_query(query, params=(target_prompt_id,), fetch_one=True)
+        if result:
+            print(f"找到 prompt_id '{target_prompt_id}' 的最新版本 (基于时间): {result['version']}")
+        else:
+            print(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
+        return result
+    
+    user_by_id_1 = get_latest_prompt_version(prompt_id)
+    if user_by_id_1:
+        version_old = user_by_id_1.get("version")
+        version_ = float(version_old)
+        version_ +=0.1
+        _id = db_manager.insert(table_name, {'prompt_id': prompt_id, 
+                                        'version': str(version_), 
+                                        'timestamp': datetime.now(),
+                                        "prompt":new_prompt})
+
+    else:
+        _id = db_manager.insert(table_name, {'prompt_id': prompt_id, 
+                                                'version': '1.0', 
+                                                'timestamp': datetime.now(),
+                                                "prompt":new_prompt})
+
+
+
+
+
 def save_prompt(prompt_id: str, new_prompt: str):
     # 存储
     main_path = "."
     prompt_file = os.path.join(main_path, f"{prompt_id}.txt")
     with open(prompt_file, "w") as f:
         f.write(new_prompt)
+
 
 
 from enum import Enum
@@ -137,7 +223,9 @@ def intellect(level: str, prompt_id: str, demand: str = None):
             output_ = input_
 
             # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
-            prompt, states = get_prompt(prompt_id)
+            # prompt, states = get_prompt(prompt_id)
+            prompt, states = get_prompts_from_sql(prompt_id)
+
 
             if level.value == "train":
                 # 注意, 这里的调整要求使用最初的那个输入, 最好一口气调整好
@@ -147,13 +235,15 @@ def intellect(level: str, prompt_id: str, demand: str = None):
                     input_prompt = prompt + "\nuser:" + demand
                 ai_result = bx.product(input_prompt)
                 new_prompt = input_prompt + "\nassistant:" + ai_result
-                save_prompt(prompt_id, new_prompt)
+                save_prompt_by_sql(prompt_id, new_prompt)
+                # save_prompt(prompt_id, new_prompt)
                 output_ = ai_result
 
             elif level.value == "summary":
                 if states == 1:
                     system_reuslt = bx.product(prompt + system_prompt_created_prompt)
-                    save_prompt(prompt_id, system_reuslt)
+                    # save_prompt(prompt_id, system_reuslt)
+                    save_prompt_by_sql(prompt_id, system_reuslt)
                     print("successful ")
 
                 else:

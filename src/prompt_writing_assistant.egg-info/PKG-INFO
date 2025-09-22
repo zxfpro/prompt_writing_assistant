@@ -1,10 +1,11 @@
 Metadata-Version: 2.4
 Name: prompt-writing-assistant
-Version: 0.1.6
+Version: 0.1.7
 Summary: Add your description here
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 Requires-Dist: anyio>=4.10.0
+Requires-Dist: db-help>=0.1.2
 Requires-Dist: llama-index-vector-stores-qdrant>=0.6.1
 Requires-Dist: llmada>=1.0.5
 Requires-Dist: pytest>=8.4.1

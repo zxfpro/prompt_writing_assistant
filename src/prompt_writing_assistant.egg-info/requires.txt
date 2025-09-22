@@ -1,4 +1,5 @@
 anyio>=4.10.0
+db-help>=0.1.2
 llama-index-vector-stores-qdrant>=0.6.1
 llmada>=1.0.5
 pytest>=8.4.1
