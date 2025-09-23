@@ -95,9 +95,10 @@ def get_latest_prompt_version(target_prompt_id,table_name,db_manager):
         print(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
     return result
 
-def get_prompts_from_sql(prompt_id: str) -> (str, int):
-
-    table_name = "prompts_data"
+def get_prompts_from_sql(prompt_id: str,table_name = "prompts_data") -> (str, int):
+    """
+    从sql获取提示词
+    """
     db_manager = MySQLManager(
         host = os.environ.get("MySQL_DB_HOST"), 
         user = os.environ.get("MySQL_DB_USER"), 
@@ -117,11 +118,10 @@ def get_prompts_from_sql(prompt_id: str) -> (str, int):
 
     return prompt, status
 
-def save_prompt_by_sql(prompt_id: str, new_prompt: str):
+def save_prompt_by_sql(prompt_id: str, new_prompt: str,table_name = "prompts_data"):
     """
-    存储
+    从sql保存提示词
     """
-    table_name = "prompts_data"
     db_manager = MySQLManager(
         host = os.environ.get("MySQL_DB_HOST"), 
         user = os.environ.get("MySQL_DB_USER"), 
@@ -133,9 +133,10 @@ def save_prompt_by_sql(prompt_id: str, new_prompt: str):
 
     if user_by_id_1:
         # 如果存在版本加1
-        version_ = float(user_by_id_1.get("version"))
-        version_ += 0.1
-        version_ = str(version_)
+        version_ori = user_by_id_1.get("version")
+        _, version = version_ori.split(".")
+        version += 1
+        version_ = f"1.{version}"
     else:
         # 如果不存在版本为1.0
         version_ = '1.0'
@@ -147,11 +148,12 @@ def save_prompt_by_sql(prompt_id: str, new_prompt: str):
 def prompt_finetune_to_sql(
     prompt_id:str,
     opinion: str = "",
+    table_name = "prompts_data"
 ):
     """
     让大模型微调已经存在的system_prompt
     """
-    prompt = get_prompts_from_sql(prompt_id = prompt_id)
+    prompt = get_prompts_from_sql(prompt_id = prompt_id,table_name = table_name)
     if opinion:
         new_prompt = bx.product(
             change_by_opinion_prompt.format(old_system_prompt=prompt, opinion=opinion)
@@ -159,7 +161,8 @@ def prompt_finetune_to_sql(
     else:
         new_prompt = prompt
     save_prompt_by_sql(prompt_id = prompt_id,
-                       new_prompt = new_prompt)
+                       new_prompt = new_prompt,
+                       table_name = table_name)
     print('success')
 
 
@@ -168,7 +171,7 @@ class IntellectType(Enum):
     inference = "inference"
     summary = "summary"
 
-def intellect(level: str, prompt_id: str, demand: str = None):
+def intellect(level: str, prompt_id: str, demand: str = None,table_name = ""):
     """
     #train ,inference ,总结,
     这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
@@ -193,7 +196,7 @@ def intellect(level: str, prompt_id: str, demand: str = None):
 
             # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
             # prompt, states = get_prompt(prompt_id)
-            prompt, states = get_prompts_from_sql(prompt_id)
+            prompt, states = get_prompts_from_sql(prompt_id,table_name = table_name)
 
 
             if level.value == "train":
@@ -204,7 +207,7 @@ def intellect(level: str, prompt_id: str, demand: str = None):
                     input_prompt = prompt + "\nuser:" + demand
                 ai_result = bx.product(input_prompt)
                 new_prompt = input_prompt + "\nassistant:" + ai_result
-                save_prompt_by_sql(prompt_id, new_prompt)
+                save_prompt_by_sql(prompt_id, new_prompt,table_name = table_name)
                 # save_prompt(prompt_id, new_prompt)
                 output_ = ai_result
 
@@ -212,8 +215,7 @@ def intellect(level: str, prompt_id: str, demand: str = None):
                 if states == 1:
                     system_reuslt = bx.product(prompt + system_prompt_created_prompt)
                     # save_prompt(prompt_id, system_reuslt)
-                    save_prompt_by_sql(prompt_id, system_reuslt)
-                    print("successful ")
+                    save_prompt_by_sql(prompt_id, system_reuslt,table_name = table_name)
 
                 else:
                     raise AssertionError("必须要已经存在一个prompt 否则无法总结")
@@ -238,7 +240,7 @@ def intellect(level: str, prompt_id: str, demand: str = None):
     return outer_packing
 
 
-def aintellect(level: str, prompt_id: str, demand: str = None):
+def aintellect(level: str, prompt_id: str, demand: str = None,table_name = ""):
     """
     #train ,inference ,总结,
     这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
@@ -261,7 +263,7 @@ def aintellect(level: str, prompt_id: str, demand: str = None):
 
             # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
             # prompt, states = get_prompt(prompt_id)
-            prompt, states = get_prompts_from_sql(prompt_id)
+            prompt, states = get_prompts_from_sql(prompt_id,table_name = table_name)
 
 
             if level.value == "train":
@@ -272,7 +274,7 @@ def aintellect(level: str, prompt_id: str, demand: str = None):
                     input_prompt = prompt + "\nuser:" + demand
                 ai_result = await bx.aproduct(input_prompt)
                 new_prompt = input_prompt + "\nassistant:" + ai_result
-                save_prompt_by_sql(prompt_id, new_prompt)
+                save_prompt_by_sql(prompt_id, new_prompt,table_name = table_name)
                 # save_prompt(prompt_id, new_prompt)
                 output_ = ai_result
 
@@ -280,9 +282,7 @@ def aintellect(level: str, prompt_id: str, demand: str = None):
                 if states == 1:
                     system_reuslt = await bx.aproduct(prompt + system_prompt_created_prompt)
                     # save_prompt(prompt_id, system_reuslt)
-                    save_prompt_by_sql(prompt_id, system_reuslt)
-                    print("successful ")
-
+                    save_prompt_by_sql(prompt_id, system_reuslt,table_name = table_name)
                 else:
                     raise AssertionError("必须要已经存在一个prompt 否则无法总结")
 
