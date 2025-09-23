@@ -1,47 +1,45 @@
 # 测试1
 
-from llmada.core import BianXieAdapter
 import os
 import functools
 import json
-from prompt_writing_assistant.utils import extract_json
+from prompt_writing_assistant.utils import extract_json,extract_python 
 from prompt_writing_assistant.prompts import evals_prompt
+from prompt_writing_assistant.prompts import change_by_opinion_prompt
+from prompt_writing_assistant.prompts import program_system_prompt
+from llmada.core import BianXieAdapter
+from db_help.mysql import MySQLManager
 from datetime import datetime
 
 
-model_name = "gemini-2.5-flash-preview-05-20-nothinking"
+from dotenv import load_dotenv
+from enum import Enum
+
+
+load_dotenv()
 bx = BianXieAdapter()
-bx.model_pool.append(model_name)
-bx.set_model(model_name=model_name)
 
 
-change_by_opinion_prompt = """
-你是一个资深AI提示词工程师，具备卓越的Prompt设计与优化能力。
-我将为你提供一段现有System Prompt。你的核心任务是基于这段Prompt进行修改，以实现我提出的特定目标和功能需求。
-请你绝对严格地遵循以下原则：
- 极端最小化修改原则（核心）：
- 在满足所有功能需求的前提下，只进行我明确要求的修改。
- 即使你认为有更“优化”、“清晰”或“简洁”的表达方式，只要我没有明确要求，也绝不允许进行任何未经指令的修改。
- 目的就是尽可能地保留原有Prompt的字符和结构不变，除非我的功能要求必须改变。
- 例如，如果我只要求你修改一个词，你就不应该修改整句话的结构。
- 严格遵循我的指令：
- 你必须精确地执行我提出的所有具体任务和要求。
- 绝不允许自行添加任何超出指令范围的说明、角色扮演、约束条件或任何非我指令要求的内容。
- 保持原有Prompt的风格和语调：
- 尽可能地与现有Prompt的语言风格、正式程度和语调保持一致。
- 不要改变不相关的句子或其表达方式。
- 只提供修改后的Prompt：
- 直接输出修改后的完整System Prompt文本。
- 不要包含任何解释、说明或额外对话。
- 在你开始之前，请务必确认你已理解并能绝对严格地遵守这些原则。任何未经明确指令的改动都将视为未能完成任务。
+def get_prompt(prompt_id: str) -> (str, int):
+    # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
+    # 读取
+    main_path = "."
+    prompt_file = os.path.join(main_path, f"{prompt_id}.txt")
+    if not os.path.exists(prompt_file):
+        with open(prompt_file, "w") as f:
+            f.write("")
+        return "", 0
+    else:
+        with open(prompt_file, "r") as f:
+            prompt = f.read()
+        return prompt, 1
 
-现有System Prompt:
-{old_system_prompt}
-
-功能需求:
-{opinion}
-"""
-
+def save_prompt(prompt_id: str, new_prompt: str):
+    # 存储
+    main_path = "."
+    prompt_file = os.path.join(main_path, f"{prompt_id}.txt")
+    with open(prompt_file, "w") as f:
+        f.write(new_prompt)
 
 def prompt_finetune(
     inputs: str,
@@ -77,120 +75,92 @@ def prompt_finetune(
     output = bx.product(prompt + inputs)
     return output
 
-from db_help.mysql import MySQLManager
+##########
+
+def get_latest_prompt_version(target_prompt_id,table_name,db_manager):
+    """
+    获取指定 prompt_id 的最新版本数据，通过创建时间判断。
+    """
+    query = f"""
+        SELECT id, prompt_id, version, timestamp, prompt
+        FROM {table_name}
+        WHERE prompt_id = %s
+        ORDER BY timestamp DESC, version DESC -- 如果时间相同，再按version降序排
+        LIMIT 1
+    """
+    result = db_manager.execute_query(query, params=(target_prompt_id,), fetch_one=True)
+    if result:
+        print(f"找到 prompt_id '{target_prompt_id}' 的最新版本 (基于时间): {result['version']}")
+    else:
+        print(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
+    return result
 
 def get_prompts_from_sql(prompt_id: str) -> (str, int):
-    DB_HOST = "127.0.0.1"
-    DB_USER = "root"
-    DB_PASSWORD = "1234" # 替换为你的 MySQL root 密码
-    DB_NAME = "prompts"
 
     table_name = "prompts_data"
-    db_manager = MySQLManager(DB_HOST, DB_USER, DB_PASSWORD, database=DB_NAME)
-
-    def get_latest_prompt_version(target_prompt_id):
-        """
-        获取指定 prompt_id 的最新版本数据，通过创建时间判断。
-        """
-        query = f"""
-            SELECT id, prompt_id, version, timestamp, prompt
-            FROM {table_name}
-            WHERE prompt_id = %s
-            ORDER BY timestamp DESC, version DESC -- 如果时间相同，再按version降序排
-            LIMIT 1
-        """
-        result = db_manager.execute_query(query, params=(target_prompt_id,), fetch_one=True)
-        if result:
-            print(f"找到 prompt_id '{target_prompt_id}' 的最新版本 (基于时间): {result['version']}")
-        else:
-            print(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
-        return result
-    
-    user_by_id_1 = get_latest_prompt_version(prompt_id)
+    db_manager = MySQLManager(
+        host = os.environ.get("MySQL_DB_HOST"), 
+        user = os.environ.get("MySQL_DB_USER"), 
+        password = os.environ.get("MySQL_DB_PASSWORD"), 
+        database=os.environ.get("MySQL_DB_NAME")
+        )
+    # 查看是否已经存在
+    user_by_id_1 = get_latest_prompt_version(prompt_id,table_name,db_manager)
     if user_by_id_1:
+        # 如果存在获得
         prompt = user_by_id_1.get("prompt")
         status = 1
     else:
-        save_prompt_by_sql(prompt_id, "")
+        # 如果没有则返回空
         prompt = ""
         status = 0
 
     return prompt, status
 
-
-
-def get_prompt(prompt_id: str) -> (str, int):
-    # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
-    # 读取
-    main_path = "."
-    prompt_file = os.path.join(main_path, f"{prompt_id}.txt")
-    if not os.path.exists(prompt_file):
-        with open(prompt_file, "w") as f:
-            f.write("")
-        return "", 0
-    else:
-        with open(prompt_file, "r") as f:
-            prompt = f.read()
-        return prompt, 1
-
-
 def save_prompt_by_sql(prompt_id: str, new_prompt: str):
-    # 存储
-    DB_HOST = "127.0.0.1"
-    DB_USER = "root"
-    DB_PASSWORD = "1234" # 替换为你的 MySQL root 密码
-    DB_NAME = "prompts"
+    """
+    存储
+    """
     table_name = "prompts_data"
-    db_manager = MySQLManager(DB_HOST, DB_USER, DB_PASSWORD, database=DB_NAME)
+    db_manager = MySQLManager(
+        host = os.environ.get("MySQL_DB_HOST"), 
+        user = os.environ.get("MySQL_DB_USER"), 
+        password = os.environ.get("MySQL_DB_PASSWORD"), 
+        database=os.environ.get("MySQL_DB_NAME")
+        )
+    # 查看是否已经存在
+    user_by_id_1 = get_latest_prompt_version(prompt_id,table_name,db_manager)
 
-    def get_latest_prompt_version(target_prompt_id):
-        """
-        获取指定 prompt_id 的最新版本数据，通过创建时间判断。
-        """
-        query = f"""
-            SELECT id, prompt_id, version, timestamp, prompt
-            FROM {table_name}
-            WHERE prompt_id = %s
-            ORDER BY timestamp DESC, version DESC -- 如果时间相同，再按version降序排
-            LIMIT 1
-        """
-        result = db_manager.execute_query(query, params=(target_prompt_id,), fetch_one=True)
-        if result:
-            print(f"找到 prompt_id '{target_prompt_id}' 的最新版本 (基于时间): {result['version']}")
-        else:
-            print(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
-        return result
-    
-    user_by_id_1 = get_latest_prompt_version(prompt_id)
     if user_by_id_1:
-        version_old = user_by_id_1.get("version")
-        version_ = float(version_old)
-        version_ +=0.1
-        _id = db_manager.insert(table_name, {'prompt_id': prompt_id, 
-                                        'version': str(version_), 
-                                        'timestamp': datetime.now(),
-                                        "prompt":new_prompt})
-
+        # 如果存在版本加1
+        version_ = float(user_by_id_1.get("version"))
+        version_ += 0.1
+        version_ = str(version_)
     else:
-        _id = db_manager.insert(table_name, {'prompt_id': prompt_id, 
-                                                'version': '1.0', 
-                                                'timestamp': datetime.now(),
-                                                "prompt":new_prompt})
+        # 如果不存在版本为1.0
+        version_ = '1.0'
+    _id = db_manager.insert(table_name, {'prompt_id': prompt_id, 
+                                            'version': version_, 
+                                            'timestamp': datetime.now(),
+                                            "prompt":new_prompt})
 
-
-
-
-
-def save_prompt(prompt_id: str, new_prompt: str):
-    # 存储
-    main_path = "."
-    prompt_file = os.path.join(main_path, f"{prompt_id}.txt")
-    with open(prompt_file, "w") as f:
-        f.write(new_prompt)
-
-
-
-from enum import Enum
+def prompt_finetune_to_sql(
+    prompt_id:str,
+    opinion: str = "",
+):
+    """
+    让大模型微调已经存在的system_prompt
+    """
+    prompt = get_prompts_from_sql(prompt_id = prompt_id)
+    if opinion:
+        new_prompt = bx.product(
+            change_by_opinion_prompt.format(old_system_prompt=prompt, opinion=opinion)
+        )
+    else:
+        new_prompt = prompt
+    save_prompt_by_sql(prompt_id = prompt_id,
+                       new_prompt = new_prompt)
+    print('success')
 
 
 class IntellectType(Enum):
@@ -198,13 +168,12 @@ class IntellectType(Enum):
     inference = "inference"
     summary = "summary"
 
-
-# TODO 1 可以增加cache 来节省token
-# TODO 2 自动优化prompt 并提升稳定性, 并测试
 def intellect(level: str, prompt_id: str, demand: str = None):
     """
     #train ,inference ,总结,
     这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
+    # TODO 1 可以增加cache 来节省token
+    # TODO 2 自动优化prompt 并提升稳定性, 并测试
 
     """
     system_prompt_created_prompt = """
@@ -336,31 +305,78 @@ def aintellect(level: str, prompt_id: str, demand: str = None):
 
     return outer_packing
 
+
+
 ############evals##############
 
 
-def evals(
-    _input: list[str],
-    llm_output: list[str],
-    person_output: list[str],
-    rule: str,
-    pass_if: str,
-) -> "eval_result-str, eval_reason-str":
-    result = bx.product(
-        evals_prompt.format(
-            评分规则=rule,
-            输入案例=_input,
-            大模型生成内容=llm_output,
-            人类基准=person_output,
-            通过条件=pass_if,
+class Base_Evals():
+    def __init__(self):
+        self.MIN_SUCCESS_RATE = 00.0 # 这里定义通过阈值, 高于该比例则通过
+
+
+    def _assert_eval_function(self,params):
+        print(params,'params')
+
+    def get_success_rate(self,test_cases:list):
+        """
+                # 这里定义数据
+
+        """
+
+        successful_assertions = 0
+        total_assertions = len(test_cases)
+        failed_cases = []
+
+        for i, params in enumerate(test_cases):
+            try:
+                # 这里将参数传入
+                self._assert_eval_function(params)
+                successful_assertions += 1
+            except AssertionError as e:
+                failed_cases.append(f"Case {i+1} ({params}): FAILED. Expected {params},. Error: {e}")
+            except Exception as e: # 捕获其他可能的错误
+                failed_cases.append(f"Case {i+1} ({params}): ERROR. Input {params} Error: {e}")
+                print(f"Case {i+1} ({params}): ERROR. Error: {e}")
+
+        success_rate = (successful_assertions / total_assertions) * 100
+        print(f"\n--- Aggregated Results ---")
+        print(f"Total test cases: {total_assertions}")
+        print(f"Successful cases: {successful_assertions}")
+        print(f"Failed cases count: {len(failed_cases)}")
+        print(f"Success Rate: {success_rate:.2f}%")
+
+        assert success_rate >= self.MIN_SUCCESS_RATE, \
+            f"Test failed: Success rate {success_rate:.2f}% is below required {self.MIN_SUCCESS_RATE:.2f}%." + \
+            f"\nFailed cases details:\n" + "\n".join(failed_cases)
+
+    def llm_evals(
+        self,
+        _input: list[str],
+        llm_output: list[str],
+        person_output: list[str],
+        rule: str,
+        pass_if: str,
+    ) -> "eval_result-str, eval_reason-str":
+        result = bx.product(
+            evals_prompt.format(
+                评分规则=rule,
+                输入案例=_input,
+                大模型生成内容=llm_output,
+                人类基准=person_output,
+                通过条件=pass_if,
+            )
         )
-    )
-    #  eval_result,eval_reason
-    # TODO
-    """
-    "passes": "<是否通过, True or False>",
-    "reason": "<如果不通过, 基于驳回理由>",
-    "suggestions_on_revision": 
-    """
-    result = json.loads(extract_json(result))
-    return result.get("passes"), result.get("suggestions_on_revision")
+        #  eval_result,eval_reason
+        # TODO
+        """
+        "passes": "<是否通过, True or False>",
+        "reason": "<如果不通过, 基于驳回理由>",
+        "suggestions_on_revision": 
+        """
+        result = json.loads(extract_json(result))
+        return result.get("passes"), result.get("suggestions_on_revision")
+
+
+
+

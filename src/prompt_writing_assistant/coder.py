@@ -429,3 +429,26 @@ class Code_Manager():
             super_print(result.text,"result")
         return "success"
 
+
+
+
+
+class EditCode:
+    def __init__(self,py_path):
+        self.py_path = py_path
+        self.bx = BianXieAdapter()
+        
+
+    def edit(self,function_requirement:str):
+        # 最小改动代码原则
+        path = '/'.join(self.py_path.split('/')[:-1])
+        with open(self.py_path,'r') as f:
+            code = f.read()
+        prompt = program_system_prompt.format(source_code=code,function_requirement=function_requirement)
+
+        response = self.bx.product(prompt)
+        response = extract_python(response)
+        with open(self.py_path,'w') as f:
+            f.write(response)
+        print(f"代码已保存到{self.py_path}")
+

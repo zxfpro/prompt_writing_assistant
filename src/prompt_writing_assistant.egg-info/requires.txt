@@ -1,7 +1,7 @@
 anyio>=4.10.0
 db-help>=0.1.2
 llama-index-vector-stores-qdrant>=0.6.1
-llmada>=1.0.5
+llmada>=1.1.1
 pytest>=8.4.1
 pytest-asyncio>=1.1.0
 pytest-tornasync>=0.6.0.post2

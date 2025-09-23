@@ -103,3 +103,21 @@ def test__():
     print("\nGenerated Simple Summary:")
     print(simple_summary)
 
+from program_writing_assistant.core__2 import EditCode
+
+
+def test_edit():
+    py_file = 'tests/temp_file/file.py'
+    with open(py_file,'w') as f:
+        f.write("print('hello world')")
+    ec = EditCode(py_file)
+    ec.edit('改成 你好 世界')
+    with open(py_file,'r') as f:
+        tt = f.read()
+    assert "你好" in tt
+    
+
+
+
+
+#############

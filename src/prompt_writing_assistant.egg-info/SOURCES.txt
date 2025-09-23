@@ -2,8 +2,8 @@ README.md
 pyproject.toml
 src/prompt_writing_assistant/__init__.py
 src/prompt_writing_assistant/coder.py
-src/prompt_writing_assistant/core.py
 src/prompt_writing_assistant/log.py
+src/prompt_writing_assistant/prompt_helper.py
 src/prompt_writing_assistant/prompts.py
 src/prompt_writing_assistant/server.py
 src/prompt_writing_assistant/utils.py
