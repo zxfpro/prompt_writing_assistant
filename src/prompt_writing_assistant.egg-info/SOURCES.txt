@@ -17,3 +17,4 @@ tests/test_auto_web.py
 tests/test_coder.py
 tests/test_prompt.py
 tests/test_txt.py
+tests/test_数字人生.py

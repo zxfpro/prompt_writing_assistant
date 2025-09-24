@@ -54,6 +54,20 @@ def extract_python(text: str) -> str:
     else:
         return ""  # 返回空字符串或抛出异常，此处返回空字符串
 
+def extract_article(text: str) -> str:
+    """从文本中提取python代码
+    Args:
+        text (str): 输入的文本。
+    Returns:
+        str: 提取出的python文本
+    """
+    pattern = r"```article([\s\S]*?)```"
+    matches = re.findall(pattern, text)
+    if matches:
+        return matches[0].strip()  # 添加strip()去除首尾空白符
+    else:
+        return ""  # 返回空字符串或抛出异常，此处返回空字符串
+
 
 def extract_curl(text: str) -> str:
     """从文本中提取python代码

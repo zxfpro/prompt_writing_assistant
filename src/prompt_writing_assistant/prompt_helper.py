@@ -95,6 +95,37 @@ def get_latest_prompt_version(target_prompt_id,table_name,db_manager):
         print(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
     return result
 
+def get_specific_prompt_version(target_prompt_id, target_version, table_name, db_manager):
+    """
+    获取指定 prompt_id 和特定版本的数据。
+
+    Args:
+        target_prompt_id (str): 目标提示词的唯一标识符。
+        target_version (int): 目标提示词的版本号。
+        table_name (str): 存储提示词数据的数据库表名。
+        db_manager (DBManager): 数据库管理器的实例，用于执行查询。
+
+    Returns:
+        dict or None: 如果找到，返回包含 id, prompt_id, version, timestamp, prompt 字段的字典；
+                      否则返回 None。
+    """
+    query = f"""
+        SELECT id, prompt_id, version, timestamp, prompt
+        FROM {table_name}
+        WHERE prompt_id = %s AND version = %s
+        LIMIT 1 -- 理论上 prompt_id 和 version 组合应该是唯一的，所以只取一个
+    """
+    
+    # 组合参数，顺序与 query 中的 %s 对应
+    params = (target_prompt_id, target_version)
+    result = db_manager.execute_query(query, params=params, fetch_one=True)
+    if result:
+        print(f"找到 prompt_id '{target_prompt_id}', 版本 '{target_version}' 的提示词数据。")
+    else:
+        print(f"未找到 prompt_id '{target_prompt_id}', 版本 '{target_version}' 的提示词数据。")
+    return result
+
+
 def get_prompts_from_sql(prompt_id: str,table_name = "prompts_data") -> (str, int):
     """
     从sql获取提示词
@@ -135,8 +166,10 @@ def save_prompt_by_sql(prompt_id: str, new_prompt: str,table_name = "prompts_dat
         # 如果存在版本加1
         version_ori = user_by_id_1.get("version")
         _, version = version_ori.split(".")
+        version = int(version)
         version += 1
         version_ = f"1.{version}"
+
     else:
         # 如果不存在版本为1.0
         version_ = '1.0'
@@ -202,12 +235,16 @@ def intellect(level: str, prompt_id: str, demand: str = None,table_name = ""):
             if level.value == "train":
                 # 注意, 这里的调整要求使用最初的那个输入, 最好一口气调整好
                 if states == 0:
-                    input_prompt = prompt + "\nuser:" + demand + "\n" + input_
+                    input_prompt = "user:\n" + demand + "\ninput:\n" + input_
                 elif states == 1:
-                    input_prompt = prompt + "\nuser:" + demand
+                    chat_history = prompt
+                    if not demand:
+                        input_prompt = chat_history + "\ninput:\n" + input_
+                    else:
+                        input_prompt = chat_history + "\nuser:" + demand + "\ninput:\n" + input_
                 ai_result = bx.product(input_prompt)
-                new_prompt = input_prompt + "\nassistant:" + ai_result
-                save_prompt_by_sql(prompt_id, new_prompt,table_name = table_name)
+                chat_history = input_prompt + "\nassistant:\n" + ai_result # 用聊天记录作为完整提示词
+                save_prompt_by_sql(prompt_id, chat_history,table_name = table_name)
                 # save_prompt(prompt_id, new_prompt)
                 output_ = ai_result
 
@@ -222,7 +259,7 @@ def intellect(level: str, prompt_id: str, demand: str = None,table_name = ""):
 
             elif level.value == "inference":
                 if states == 1:
-                    ai_result = bx.product(prompt + input_)
+                    ai_result = bx.product(prompt + "\ninput:\n" +  input_)
                     output_ = ai_result
                 else:
                     raise AssertionError("必须要已经存在一个prompt 否则无法总结")
