@@ -1,6 +1,6 @@
 # 测试 
 import pytest
-from prompt_writing_assistant.prompt_helper import intellect,IntellectType,aintellect
+from prompt_writing_assistant.prompt_helper import intellect,IntellectType
 from prompt_writing_assistant.prompt_helper import prompt_finetune_to_sql, get_prompts_from_sql, save_prompt_by_sql
 from prompt_writing_assistant.utils import super_print
 from prompt_writing_assistant.utils import extract_article,extract_json
@@ -74,45 +74,4 @@ def test_evals():
 
 
 
-#########--时空光年-数字人生--#############
-"""
-0098 数字分身简介
-0099 数字分身性格提取
-0100 # 数字分身信息脱敏
-"""
-
-
-import os
-
-def test_work():
-    host = os.getenv("MySQL_DB_HOST")
-    user = os.getenv("MySQL_DB_USER")
-    passward = os.getenv("MySQL_DB_PASSWORD")
-    name = os.getenv("MySQL_DB_NAME")
-    table = os.getenv("MySQL_DB_Table_Name")
-    print(host)
-    print()
-    print(user)
-    print()
-    print(passward)
-    print()
-    print(name)
-    print()
-    print(table)
-    print()
-
-from datetime import datetime
-from db_help.mysql import MySQLManager
-def test_db_help():
-    
-    db_manager = MySQLManager(host=os.getenv("MySQL_DB_HOST"),
-                 user=os.getenv("MySQL_DB_USER"),
-                 password=os.getenv("MySQL_DB_PASSWORD"),
-                 database=os.getenv("MySQL_DB_NAME")
-                 )
-    
-    table_name = "llm_prompt"
-    user1_id = db_manager.insert(table_name, {'prompt_id': '1234134', 'version': '1.0', 'timestamp': datetime.now(),"prompt":"你好"})
-    user2_id = db_manager.insert(table_name, {'prompt_id': '2345234234', 'version': '1.1', 'timestamp': datetime.now(),"prompt":"你好2223"})
-    db_manager.close()
 

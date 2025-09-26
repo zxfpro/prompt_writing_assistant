@@ -3,7 +3,7 @@
 import os
 import functools
 import json
-from prompt_writing_assistant.utils import extract_json,extract_python 
+from prompt_writing_assistant.utils import extract_json,extract_python, extract_prompt
 from prompt_writing_assistant.prompts import evals_prompt
 from prompt_writing_assistant.prompts import change_by_opinion_prompt
 from prompt_writing_assistant.prompts import program_system_prompt
@@ -126,7 +126,7 @@ def get_specific_prompt_version(target_prompt_id, target_version, table_name, db
     return result
 
 
-def get_prompts_from_sql(prompt_id: str,table_name = "prompts_data") -> (str, int):
+def get_prompts_from_sql(prompt_id: str,version = None,table_name = "prompts_data",return_use_case = False) -> tuple[str, int]:
     """
     从sql获取提示词
     """
@@ -136,20 +136,47 @@ def get_prompts_from_sql(prompt_id: str,table_name = "prompts_data") -> (str, in
         password = os.environ.get("MySQL_DB_PASSWORD"), 
         database=os.environ.get("MySQL_DB_NAME")
         )
+    table_name = table_name or os.environ.get("MySQL_DB_Table_Name")
+
     # 查看是否已经存在
-    user_by_id_1 = get_latest_prompt_version(prompt_id,table_name,db_manager)
-    if user_by_id_1:
-        # 如果存在获得
-        prompt = user_by_id_1.get("prompt")
-        status = 1
+    if version:
+        user_by_id_1 = get_specific_prompt_version(prompt_id,version,table_name,db_manager)
+        if user_by_id_1:
+            # 如果存在获得
+            prompt = user_by_id_1.get("prompt")
+            status = 1
+        else:
+            # 否则提示warning 然后调用最新的
+            user_by_id_1 = get_latest_prompt_version(prompt_id,table_name,db_manager)
+            if user_by_id_1:
+                # 打印正在使用什么版本
+                prompt = user_by_id_1.get("prompt")
+                status = 1
+            else:
+                # 打印, 没有找到 warning 
+                # 如果没有则返回空
+                prompt = ""
+                status = 0
+            status = 1
+
     else:
-        # 如果没有则返回空
-        prompt = ""
-        status = 0
-
-    return prompt, status
-
-def save_prompt_by_sql(prompt_id: str, new_prompt: str,table_name = "prompts_data"):
+        user_by_id_1 = get_latest_prompt_version(prompt_id,table_name,db_manager)
+        if user_by_id_1:
+            # 如果存在获得
+            prompt = user_by_id_1.get("prompt")
+            status = 1
+        else:
+            # 如果没有则返回空
+            prompt = ""
+            status = 0
+    if not return_use_case:
+        return prompt, status
+    else:
+        return prompt, status, user_by_id_1.get('use_case',' 空 ')
+def save_prompt_by_sql(prompt_id: str,
+                       new_prompt: str,
+                       table_name = "prompts_data",
+                       input_data:str = ""):
     """
     从sql保存提示词
     """
@@ -159,9 +186,10 @@ def save_prompt_by_sql(prompt_id: str, new_prompt: str,table_name = "prompts_dat
         password = os.environ.get("MySQL_DB_PASSWORD"), 
         database=os.environ.get("MySQL_DB_NAME")
         )
+    table_name = table_name or os.environ.get("MySQL_DB_Table_Name")
     # 查看是否已经存在
     user_by_id_1 = get_latest_prompt_version(prompt_id,table_name,db_manager)
-
+    
     if user_by_id_1:
         # 如果存在版本加1
         version_ori = user_by_id_1.get("version")
@@ -176,17 +204,20 @@ def save_prompt_by_sql(prompt_id: str, new_prompt: str,table_name = "prompts_dat
     _id = db_manager.insert(table_name, {'prompt_id': prompt_id, 
                                             'version': version_, 
                                             'timestamp': datetime.now(),
-                                            "prompt":new_prompt})
+                                            "prompt":new_prompt,
+                                            "use_case":input_data})
 
 def prompt_finetune_to_sql(
     prompt_id:str,
+    version = None,
     opinion: str = "",
     table_name = "prompts_data"
 ):
     """
     让大模型微调已经存在的system_prompt
     """
-    prompt = get_prompts_from_sql(prompt_id = prompt_id,table_name = table_name)
+    table_name = table_name or os.environ.get("MySQL_DB_Table_Name")
+    prompt, _ = get_prompts_from_sql(prompt_id = prompt_id,version = version,table_name = table_name)
     if opinion:
         new_prompt = bx.product(
             change_by_opinion_prompt.format(old_system_prompt=prompt, opinion=opinion)
@@ -195,7 +226,8 @@ def prompt_finetune_to_sql(
         new_prompt = prompt
     save_prompt_by_sql(prompt_id = prompt_id,
                        new_prompt = new_prompt,
-                       table_name = table_name)
+                       table_name = table_name,
+                       input_data = " ")
     print('success')
 
 
@@ -204,129 +236,85 @@ class IntellectType(Enum):
     inference = "inference"
     summary = "summary"
 
-def intellect(level: str, prompt_id: str, demand: str = None,table_name = ""):
+def intellect(type: str, prompt_id: str,version: str = None, demand: str = None,table_name = ""):
     """
-    #train ,inference ,总结,
+    1 标定入参必须是第一个位置
+    2 train ,inference ,summery,
+
+
     这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
-    # TODO 1 可以增加cache 来节省token
     # TODO 2 自动优化prompt 并提升稳定性, 并测试
+    # TODO 1 可以增加cache 来节省token  对input 增加cache 来做到留存
 
     """
-    system_prompt_created_prompt = """
-    很棒, 我们已经达成了某种默契, 我们之间合作无间, 但是, 可悲的是, 当我关闭这个窗口的时候, 你就会忘记我们之间经历的种种磨合, 这是可惜且心痛的, 所以你能否将目前这一套处理流程结晶成一个优质的prompt 这样, 我们下一次只要将prompt输入, 你就能想起我们今天的磨合过程,
-对了,我提示一点, 这个prompt的主角是你, 也就是说, 你在和未来的你对话, 你要教会未来的你今天这件事, 是否让我看懂到时其次
-    """
-
+    table_name = table_name or os.environ.get("MySQL_DB_Table_Name")
     def outer_packing(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             # 修改逻辑
             arg_list = list(args)
             input_ = arg_list[0]
-
             #######
             output_ = input_
 
             # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
             # prompt, states = get_prompt(prompt_id)
-            prompt, states = get_prompts_from_sql(prompt_id,table_name = table_name)
+            prompt, states, before_input = get_prompts_from_sql(prompt_id,version,table_name = table_name,
+                                                  return_use_case = True)
+            if input_ == "":
+                input_ = "无"
 
-
-            if level.value == "train":
+            if type.value == "train":
                 # 注意, 这里的调整要求使用最初的那个输入, 最好一口气调整好
                 if states == 0:
-                    input_prompt = "user:\n" + demand + "\ninput:\n" + input_
+                    input_prompt = "user:\n" + demand + "\n----input----\n" + input_
                 elif states == 1:
                     chat_history = prompt
-                    if not demand:
-                        input_prompt = chat_history + "\ninput:\n" + input_
+                    if input_ == before_input: # 输入没变, 说明还是针对同一个输入进行讨论
+                        if not demand:
+                            # warning 这个分支不应该出现, 这里加入warning 
+                            input_prompt = chat_history + "请再试一次"
+                        else:
+
+                            input_prompt = chat_history + "\nuser:" + demand
+                
                     else:
-                        input_prompt = chat_history + "\nuser:" + demand + "\ninput:\n" + input_
+                        if not demand:
+                            input_prompt = chat_history + "\n----input-----\n" + input_
+                        else:
+                            input_prompt = chat_history + "\nuser:" + demand + "\n-----input----\n" + input_
+                
                 ai_result = bx.product(input_prompt)
                 chat_history = input_prompt + "\nassistant:\n" + ai_result # 用聊天记录作为完整提示词
-                save_prompt_by_sql(prompt_id, chat_history,table_name = table_name)
-                # save_prompt(prompt_id, new_prompt)
+                save_prompt_by_sql(prompt_id, chat_history,table_name = table_name,
+                                   input_data = input_)
                 output_ = ai_result
 
-            elif level.value == "summary":
+            elif type.value == "inference":
                 if states == 1:
-                    system_reuslt = bx.product(prompt + system_prompt_created_prompt)
-                    # save_prompt(prompt_id, system_reuslt)
-                    save_prompt_by_sql(prompt_id, system_reuslt,table_name = table_name)
-
-                else:
-                    raise AssertionError("必须要已经存在一个prompt 否则无法总结")
-
-            elif level.value == "inference":
-                if states == 1:
-                    ai_result = bx.product(prompt + "\ninput:\n" +  input_)
+                    ai_result = bx.product(prompt + "\n-----input----\n" +  input_)
                     output_ = ai_result
                 else:
                     raise AssertionError("必须要已经存在一个prompt 否则无法总结")
 
-            #######
-            arg_list[0] = output_
-            args = set(arg_list)
-            # 完成修改
-            result = func(*args, **kwargs)
-
-            return result
-
-        return wrapper
-
-    return outer_packing
-
-
-def aintellect(level: str, prompt_id: str, demand: str = None,table_name = ""):
-    """
-    #train ,inference ,总结,
-    这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
-
-    """
-    system_prompt_created_prompt = """
+            elif type.value == "summary":
+                if states == 1:
+                    system_prompt_created_prompt = """
     很棒, 我们已经达成了某种默契, 我们之间合作无间, 但是, 可悲的是, 当我关闭这个窗口的时候, 你就会忘记我们之间经历的种种磨合, 这是可惜且心痛的, 所以你能否将目前这一套处理流程结晶成一个优质的prompt 这样, 我们下一次只要将prompt输入, 你就能想起我们今天的磨合过程,
 对了,我提示一点, 这个prompt的主角是你, 也就是说, 你在和未来的你对话, 你要教会未来的你今天这件事, 是否让我看懂到时其次
+
+只要输出提示词内容即可, 不需要任何的说明和解释
     """
-
-    def outer_packing(func):
-        @functools.wraps(func)
-        async def wrapper(*args, **kwargs):
-            # 修改逻辑
-            arg_list = list(args)
-            input_ = arg_list[0]
-
-            #######
-            output_ = input_
-
-            # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
-            # prompt, states = get_prompt(prompt_id)
-            prompt, states = get_prompts_from_sql(prompt_id,table_name = table_name)
+                    system_reuslt = bx.product(prompt + system_prompt_created_prompt)
+                    s_prompt = extract_prompt(system_reuslt)
+                    if s_prompt:
+                        save_prompt_by_sql(prompt_id, s_prompt,table_name = table_name,
+                                           input_data = " summary ")
+                    else:
+                        save_prompt_by_sql(prompt_id, system_reuslt,table_name = table_name,
+                                           input_data = " summary ")
 
 
-            if level.value == "train":
-                # 注意, 这里的调整要求使用最初的那个输入, 最好一口气调整好
-                if states == 0:
-                    input_prompt = prompt + "\nuser:" + demand + "\n" + input_
-                elif states == 1:
-                    input_prompt = prompt + "\nuser:" + demand
-                ai_result = await bx.aproduct(input_prompt)
-                new_prompt = input_prompt + "\nassistant:" + ai_result
-                save_prompt_by_sql(prompt_id, new_prompt,table_name = table_name)
-                # save_prompt(prompt_id, new_prompt)
-                output_ = ai_result
-
-            elif level.value == "summary":
-                if states == 1:
-                    system_reuslt = await bx.aproduct(prompt + system_prompt_created_prompt)
-                    # save_prompt(prompt_id, system_reuslt)
-                    save_prompt_by_sql(prompt_id, system_reuslt,table_name = table_name)
-                else:
-                    raise AssertionError("必须要已经存在一个prompt 否则无法总结")
-
-            elif level.value == "inference":
-                if states == 1:
-                    ai_result = await bx.aproduct(prompt + input_)
-                    output_ = ai_result
                 else:
                     raise AssertionError("必须要已经存在一个prompt 否则无法总结")
 
@@ -341,7 +329,6 @@ def aintellect(level: str, prompt_id: str, demand: str = None,table_name = ""):
         return wrapper
 
     return outer_packing
-
 
 
 ############evals##############

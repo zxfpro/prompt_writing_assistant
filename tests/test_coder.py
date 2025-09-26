@@ -1,55 +1,73 @@
+import pytest
+from prompt_writing_assistant.coder import Code_Manager, TextType
 
-from prompt_writing_assistant.utils_search import Code_Manager,TextType
 
-
+# UPDATE CODE
 def test_Code_Manager_update():
     cm = Code_Manager()
 
     code = '''
 
-def generate(input_:list[str],prompt:str)->list[str]:
-    prompt = PromptTemplate(prompt)
-    result = bx.product(prompt.format(bl = input_))
-    return result
+    @retry(
+        wait=wait_exponential(
+            multiplier=1, min=1, max=10
+        ),  # 首次等待1秒，指数增长，最大10秒
+        stop=stop_after_attempt(3),  # 最多尝试5次 (1次初始请求 + 4次重试)
+        retry=(
+            retry_if_exception_type(httpx.RequestError)  # 匹配网络错误 (连接超时, DNS, SSL等)
+            | retry_if_exception_type(httpx.HTTPStatusError)  # 匹配HTTP状态码错误
+        ),
+        before_sleep=before_sleep_log(logger, logging.INFO),  # 每次重试前打印日志
+        reraise=True,  # 如果所有重试都失败，重新抛出最后一个异常
+    )
+    async def arequest(self, params: dict) -> dict:
+        """
+        # 修改后的异步请求函数
+        简单对话：直接调用 OpenAI API 并返回完整响应 (异步版本)
+        """
+        api_base = self.api_base
+        logger.info("Async request running")
+        try:
+            time1 = time.time()
+            # 使用 httpx.AsyncClient 进行异步请求
+            async with httpx.AsyncClient(headers=self.headers) as client:
+                response = await client.post(
+                    api_base, json=params, timeout=60.0
+                )  # 加上timeout是个好习惯
+                response.raise_for_status()  # 检查HTTP状态码，如果不是2xx，会抛出异常
 
-async def _agenerate_single(prompt_format:str) -> str:
-    try:
-        model_name = "gemini-2.5-flash-preview-05-20-nothinking"
-        bx.model_pool.append(model_name)
-        bx.set_model(model_name=model_name)
-        result = await asyncio.to_thread(bx.product, prompt_format)
-        return result
-    except Exception as e:
-        print(f"Error processing from {e}")
-        return None 
+            time2 = time.time()
+            logger.debug(f"Request took: {time2 - time1:.4f} seconds")
 
-async def agenerate(input_:list[str],prompt:str)->list[str]:
-    executor = concurrent.futures.ThreadPoolExecutor(max_workers=20) # 根据需要调整并发度
+            return response.json()
 
-    prompt = PromptTemplate(prompt)
-    tasks = []
-    for inp in input_:
-        print(f"Creating task")
-        prompt_format = prompt.format(bl = inp)
-        tasks.append(_agenerate_single(prompt_format))
+        except httpx.HTTPStatusError as e:
+            logger.error(
+                f"HTTP error occurred: {e.response.status_code} - {e.response.text}"
+            )
+            # 这里不要重新抛出新的Exception类型，而是重新抛出原始异常，或者不捕获让tenacity处理
+            # 方式一：直接 raise e，tenacity 会捕捉到 httpx.HTTPStatusError
+            raise
+        except httpx.RequestError as e:
+            logger.error(f"An error occurred while requesting {e.request.url!r}: {e}")
+            raise 
+        except Exception as e:
+            logger.error(f"An unexpected error occurred: {e}")
+            raise Exception(f"API request failed: {e}") from e
 
-    results = await asyncio.gather(*tasks, return_exceptions=False) 
-
-    executor.shutdown(wait=True)
-    return results
-
-
+    注意raise 的方式
     '''
 
     cm.update(text=code,
               type = TextType.Code
               )
-
+# UPDATE PROMPT
 def test_Code_Manager_update_prompt():
     cm = Code_Manager()
-
     text = '''
-
+发现问题了, 在pytest 中使用插件执行时, 日志就会失效
+'''
+    text = '''
 
     '''
 
@@ -61,7 +79,8 @@ def test_Code_Manager():
     cm = Code_Manager()
 
     prompt = """
-你好    
+with contents() as f:
+ 
 """
     result = cm.search(prompt)
 
@@ -103,18 +122,18 @@ def test__():
     print("\nGenerated Simple Summary:")
     print(simple_summary)
 
-from program_writing_assistant.core__2 import EditCode
+# from program_writing_assistant.core__2 import EditCode
 
 
-def test_edit():
-    py_file = 'tests/temp_file/file.py'
-    with open(py_file,'w') as f:
-        f.write("print('hello world')")
-    ec = EditCode(py_file)
-    ec.edit('改成 你好 世界')
-    with open(py_file,'r') as f:
-        tt = f.read()
-    assert "你好" in tt
+# def test_edit():
+#     py_file = 'tests/temp_file/file.py'
+#     with open(py_file,'w') as f:
+#         f.write("print('hello world')")
+#     ec = EditCode(py_file)
+#     ec.edit('改成 你好 世界')
+#     with open(py_file,'r') as f:
+#         tt = f.read()
+#     assert "你好" in tt
     
 
 
