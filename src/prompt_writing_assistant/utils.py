@@ -11,6 +11,23 @@ import inspect
 import importlib
 import yaml
 
+
+def extract_(text: str, pattern_key = r"json",multi = False):
+    pattern = r"```"+ pattern_key + r"([\s\S]*?)```"
+    matches = re.findall(pattern, text)
+    if multi:
+        [match.strip() for match in matches]
+        if matches:
+            return [match.strip() for match in matches]    
+        else:
+            return ""  # 返回空字符串或抛出异常，此处返回空字符串
+    else:
+        if matches:
+            return matches[0].strip()  # 添加strip()去除首尾空白符
+        else:
+            return ""  # 返回空字符串或抛出异常，此处返回空字符串
+
+
 def extract_json(text: str) -> str:
     """从文本中提取python代码
     Args:
@@ -39,7 +56,6 @@ def extract_prompt(text: str) -> str:
     else:
         return ""  # 返回空字符串或抛出异常，此处返回空字符串
 
-
 def extract_json_multi(text: str) -> list[str]:
     """从文本中提取python代码
     Args:
@@ -53,7 +69,6 @@ def extract_json_multi(text: str) -> list[str]:
         return [match.strip() for match in matches]        
     else:
         return []  # 返回空字符串或抛出异常，此处返回空字符串
-
 
 def extract_python(text: str) -> str:
     """从文本中提取python代码
@@ -82,7 +97,6 @@ def extract_article(text: str) -> str:
         return matches[0].strip()  # 添加strip()去除首尾空白符
     else:
         return ""  # 返回空字符串或抛出异常，此处返回空字符串
-
 
 def extract_curl(text: str) -> str:
     """从文本中提取python代码

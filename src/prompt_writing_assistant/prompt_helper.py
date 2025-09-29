@@ -14,11 +14,14 @@ from datetime import datetime
 
 from dotenv import load_dotenv
 from enum import Enum
-
+from prompt_writing_assistant.log import Log
+logger = Log.logger
 
 load_dotenv()
 bx = BianXieAdapter()
 
+def editing_log(content):
+    logger.debug(content)
 
 def get_prompt(prompt_id: str) -> (str, int):
     # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
@@ -82,7 +85,7 @@ def get_latest_prompt_version(target_prompt_id,table_name,db_manager):
     获取指定 prompt_id 的最新版本数据，通过创建时间判断。
     """
     query = f"""
-        SELECT id, prompt_id, version, timestamp, prompt
+        SELECT id, prompt_id, version, timestamp, prompt, use_case
         FROM {table_name}
         WHERE prompt_id = %s
         ORDER BY timestamp DESC, version DESC -- 如果时间相同，再按version降序排
@@ -110,10 +113,10 @@ def get_specific_prompt_version(target_prompt_id, target_version, table_name, db
                       否则返回 None。
     """
     query = f"""
-        SELECT id, prompt_id, version, timestamp, prompt
+        SELECT id, prompt_id, version, timestamp, prompt, use_case
         FROM {table_name}
         WHERE prompt_id = %s AND version = %s
-        LIMIT 1 -- 理论上 prompt_id 和 version 组合应该是唯一的，所以只取一个
+        LIMIT 1
     """
     
     # 组合参数，顺序与 query 中的 %s 对应
@@ -126,7 +129,7 @@ def get_specific_prompt_version(target_prompt_id, target_version, table_name, db
     return result
 
 
-def get_prompts_from_sql(prompt_id: str,version = None,table_name = "prompts_data",return_use_case = False) -> tuple[str, int]:
+def get_prompts_from_sql(prompt_id: str,version = None,table_name = "",return_use_case = False) -> tuple[str, int]:
     """
     从sql获取提示词
     """
@@ -172,7 +175,12 @@ def get_prompts_from_sql(prompt_id: str,version = None,table_name = "prompts_dat
     if not return_use_case:
         return prompt, status
     else:
-        return prompt, status, user_by_id_1.get('use_case',' 空 ')
+        if user_by_id_1:
+            editing_log(user_by_id_1.keys())
+            return prompt, status, user_by_id_1.get('use_case',' 空 ')
+        else:
+            return prompt, status, ' 空 '
+
 def save_prompt_by_sql(prompt_id: str,
                        new_prompt: str,
                        table_name = "prompts_data",
@@ -231,21 +239,42 @@ def prompt_finetune_to_sql(
     print('success')
 
 
+
+
+
+def save_prompt_by_sql_2(prompt_id: str,
+                       table_name = "prompts_data",
+                       use_case:str = "",
+                       solution: str = ""):
+    """
+    从sql保存提示词
+    """
+    db_manager = MySQLManager(
+        host = os.environ.get("MySQL_DB_HOST"), 
+        user = os.environ.get("MySQL_DB_USER"), 
+        password = os.environ.get("MySQL_DB_PASSWORD"), 
+        database=os.environ.get("MySQL_DB_NAME")
+        )
+    table_name = table_name or os.environ.get("MySQL_DB_Table_Name")
+
+    _id = db_manager.insert(table_name, {'prompt_id': prompt_id, 
+                                          "use_case":use_case,
+                                          "solution":solution})
+
+
 class IntellectType(Enum):
     train = "train"
     inference = "inference"
     summary = "summary"
+
 
 def intellect(type: str, prompt_id: str,version: str = None, demand: str = None,table_name = ""):
     """
     1 标定入参必须是第一个位置
     2 train ,inference ,summery,
 
-
     这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
-    # TODO 2 自动优化prompt 并提升稳定性, 并测试
-    # TODO 1 可以增加cache 来节省token  对input 增加cache 来做到留存
-
+    函数中是对大模型输出的后处理
     """
     table_name = table_name or os.environ.get("MySQL_DB_Table_Name")
     def outer_packing(func):
@@ -270,6 +299,7 @@ def intellect(type: str, prompt_id: str,version: str = None, demand: str = None,
                     input_prompt = "user:\n" + demand + "\n----input----\n" + input_
                 elif states == 1:
                     chat_history = prompt
+                    
                     if input_ == before_input: # 输入没变, 说明还是针对同一个输入进行讨论
                         if not demand:
                             # warning 这个分支不应该出现, 这里加入warning 
@@ -293,6 +323,11 @@ def intellect(type: str, prompt_id: str,version: str = None, demand: str = None,
             elif type.value == "inference":
                 if states == 1:
                     ai_result = bx.product(prompt + "\n-----input----\n" +  input_)
+                    save_prompt_by_sql_2(prompt_id,
+                                         table_name = "use_case",
+                                         use_case = input_,
+                                         solution = ""
+                                         )
                     output_ = ai_result
                 else:
                     raise AssertionError("必须要已经存在一个prompt 否则无法总结")
@@ -320,7 +355,7 @@ def intellect(type: str, prompt_id: str,version: str = None, demand: str = None,
 
             #######
             arg_list[0] = output_
-            args = set(arg_list)
+            args = arg_list
             # 完成修改
             result = func(*args, **kwargs)
 
@@ -336,13 +371,17 @@ def intellect(type: str, prompt_id: str,version: str = None, demand: str = None,
 
 class Base_Evals():
     def __init__(self):
+        """
+        # TODO 2 自动优化prompt 并提升稳定性, 并测试
+        """
         self.MIN_SUCCESS_RATE = 00.0 # 这里定义通过阈值, 高于该比例则通过
 
 
     def _assert_eval_function(self,params):
+        #这里定义函数的评价体系
         print(params,'params')
 
-    def get_success_rate(self,test_cases:list):
+    def get_success_rate(self,test_cases:list[tuple]):
         """
                 # 这里定义数据
 
