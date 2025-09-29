@@ -1,55 +1,58 @@
 # 测试 
 import pytest
-from prompt_writing_assistant.prompt_helper import intellect,IntellectType
-from prompt_writing_assistant.prompt_helper import prompt_finetune_to_sql, get_prompts_from_sql, save_prompt_by_sql
-from prompt_writing_assistant.utils import super_print
-from prompt_writing_assistant.utils import extract_article,extract_json
+from prompt_writing_assistant.prompt_helper import IntellectType
 from prompt_writing_assistant.prompt_helper import Base_Evals
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv("local.env", override=True)
 
-def test_get_prompts_from_sql():
-    # get_prompts_from_sql
-    result = get_prompts_from_sql(prompt_id = "123134123")
+from prompt_writing_assistant.prompt_helper import Intel
+
+
+def test_Intel():
+    intels = Intel()
+
+def test_get_prompts():
+    intels = Intel()
+    result = intels.get_prompts_from_sql(
+        table_name = "prompts_data",
+        prompt_id = "1231231")
     print(result)
 
+def test_get_prompts_version():
+    intels = Intel()
+    result = intels.get_prompts_from_sql(
+        table_name = "prompts_data",
+        prompt_id = "1231231",
+        version="1.1"
+        )
+    print(result)
 
-
-def test_save_prompt_by_sql():
-    new_prompt = """
-一个测试的提示词
-"""
-    save_prompt_by_sql(prompt_id = "123134123",
-                       new_prompt = new_prompt)
-
-
-def test_prompt_finetune_to_sql():
-    # prompt_finetune_to_sql
-    opinion = "将这个fastapi的接口改为post方式,"
-    prompt_finetune_to_sql(prompt_id = "123134123",
-                           opinion=opinion)
-
-
-# 半自动编写/优化提示词
 def test_intellect():
-    @intellect(IntellectType.train,"1231231","改为使用$符号")
+    intels = Intel()
+    @intels.intellect(IntellectType.train,
+                      "数字人生王者001",
+                      table_name ="prompts_data",
+                      demand = "改为使用$符号")
     def prompts(input_):
-        # 可以直接输出, 也可以编写后处理的逻辑 extract_json 等
+        # 后处理, 也可以编写后处理的逻辑 extract_json 等
         return input_
 
     result = prompts("你好, 我的电话号码是12343213123, 身份证是2454532345")
     print(result,'result')
 
+def test_prompt_finetune_to_sql():
+    # prompt_finetune_to_sql
+    intels = Intel()
+    demand = "将这个fastapi的接口改为post方式,"
+    result = intels.prompt_finetune_to_sql(
+        prompt_id = "数字人生王者001",
+        table_name ="prompts_data",
+        demand=demand)
+    
+    print(result)
 
-# 半自动编写/优化提示词
-async def test_aintellect():
-    @aintellect(IntellectType.train,"1231231","改为使用$符号")
-    def prompts(input_):
-        # 可以直接输出, 也可以编写后处理的逻辑 extract_json 等
-        return input_
 
-    result = await prompts("你好, 我的电话号码是12343213123, 身份证是2454532345")
-    print(result,'result')
+from prompt_writing_assistant.prompt_helper import Base_Evals
 
 # Evals
 
