@@ -176,3 +176,22 @@ def super_print(s,target:str):
     print("=="*50)
     print()
 
+
+import zlib
+from volcenginesdkarkruntime import Ark
+import os
+
+def get_adler32_hash(s):
+    return zlib.adler32(s.encode('utf-8'))
+
+def embedding_inputs(inputs:list[str],model_name = None):
+    model_name = model_name or os.getenv("Ark_model_name")
+    ark_client = Ark(api_key=os.getenv("Ark_api_key"))
+
+    resp = ark_client.embeddings.create(
+                model=model_name,
+                input=inputs,
+                encoding_format="float",
+            )
+    return [i.embedding for i in resp.data]
+

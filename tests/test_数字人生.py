@@ -5,7 +5,7 @@ from prompt_writing_assistant.utils import super_print
 from prompt_writing_assistant.utils import extract_article,extract_json
 
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(".env", override=True)
 
 #########--时空光年-数字人生--#############
 """

@@ -35,6 +35,7 @@ def test_intellect():
                       demand = "改为使用$符号")
     def prompts(input_):
         # 后处理, 也可以编写后处理的逻辑 extract_json 等
+        # 也可以使用pydnatic 做校验
         return input_
 
     result = prompts("你好, 我的电话号码是12343213123, 身份证是2454532345")
