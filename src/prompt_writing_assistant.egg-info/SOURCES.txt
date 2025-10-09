@@ -9,6 +9,7 @@ src/prompt_writing_assistant/mcp.py
 src/prompt_writing_assistant/prompt_helper.py
 src/prompt_writing_assistant/server.py
 src/prompt_writing_assistant/utils.py
+src/prompt_writing_assistant/xxxx__main__.py
 src/prompt_writing_assistant.egg-info/PKG-INFO
 src/prompt_writing_assistant.egg-info/SOURCES.txt
 src/prompt_writing_assistant.egg-info/dependency_links.txt
