@@ -10,6 +10,9 @@ import re
 import inspect
 import importlib
 import yaml
+import zlib
+from volcenginesdkarkruntime import Ark
+import os
 
 
 def extract_(text: str, pattern_key = r"json",multi = False):
@@ -27,7 +30,7 @@ def extract_(text: str, pattern_key = r"json",multi = False):
         else:
             return ""  # 返回空字符串或抛出异常，此处返回空字符串
 
-
+'''
 def extract_json(text: str) -> str:
     """从文本中提取python代码
     Args:
@@ -111,7 +114,7 @@ def extract_curl(text: str) -> str:
         return matches[0].strip()  # 添加strip()去除首尾空白符
     else:
         return ""  # 返回空字符串或抛出异常，此处返回空字符串
-
+'''
 def extract_from_loaded_objects(obj_list):
     results = []
     for obj in obj_list:
@@ -154,6 +157,19 @@ def extract_from_loaded_objects(obj_list):
     return results
 
 
+def get_adler32_hash(s):
+    return zlib.adler32(s.encode('utf-8'))
+
+def embedding_inputs(inputs:list[str],model_name = None):
+    model_name = model_name or os.getenv("Ark_model_name")
+    ark_client = Ark(api_key=os.getenv("Ark_api_key"))
+
+    resp = ark_client.embeddings.create(
+                model=model_name,
+                input=inputs,
+                encoding_format="float",
+            )
+    return [i.embedding for i in resp.data]
 
 def load_inpackage_file(package_name:str, file_name:str,file_type = 'yaml'):
     """ load config """
@@ -176,22 +192,4 @@ def super_print(s,target:str):
     print("=="*50)
     print()
 
-
-import zlib
-from volcenginesdkarkruntime import Ark
-import os
-
-def get_adler32_hash(s):
-    return zlib.adler32(s.encode('utf-8'))
-
-def embedding_inputs(inputs:list[str],model_name = None):
-    model_name = model_name or os.getenv("Ark_model_name")
-    ark_client = Ark(api_key=os.getenv("Ark_api_key"))
-
-    resp = ark_client.embeddings.create(
-                model=model_name,
-                input=inputs,
-                encoding_format="float",
-            )
-    return [i.embedding for i in resp.data]
 

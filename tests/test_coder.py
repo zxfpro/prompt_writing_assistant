@@ -1,35 +1,44 @@
-
-
 import pytest
-from prompt_writing_assistant.code_helper.coder import Code_Manager, TextType
-from prompt_writing_assistant.code_helper.coder import run
-from prompt_writing_assistant.code_helper.coder import Paper
-
-
+from prompt_writing_assistant.code_helper.coder import Paper, ProgramChart
+from prompt_writing_assistant.code_helper.coder import CoderHelper
 from dotenv import load_dotenv
 load_dotenv(".env", override=True)
 
-def test_work():
-    x = run("print(hello world)","写成中文")
+def test_min_edit():
+    x = CoderHelper().min_edit("print(hello world)","写成中文")
     print(x)
 
-from prompt_writing_assistant.code_helper.coder import highly_flexible_function
 
-def test_highly_flexible_function():
-    # 一个灵活的函数
-    result = highly_flexible_function(x="帮我将 日期 2025/12/03 向前回退12天", data = "2025/12/03")
-    print(result)
-
-    # 示例1：带参数
-    result1 = highly_flexible_function(x="帮我将 日期 2025/12/03 向前回退12天", data_str="2025/12/03", days=12)
-    print(f"示例1 执行结果: {result1}")
-
-    # 示例2：不带参数
+def test_free_function():
+    """
     result2 = highly_flexible_function(x="帮我计算 1加1")
     print(f"示例2 执行结果: {result2}")
 
+    """
+    x = CoderHelper().free_function(
+        function="帮我将 日期 2025/12/03 向前回退12天", 
+        data_str="2025/12/03", 
+        days=12)
+    print(x,"result->")
+
+def test_free_function_advanced():
+    return "1234"
+
+
+
+
+
+def test_draw_paper():
+    """
+    在一个固定画板上编辑文本
+    """
+    content = """我在凉山州做项目期间，曾替客户背过一次“黑锅”。那次是我们接处警的项目刚刚上线，因为项目是在凉山州做的，所以我们在西昌市驻扎。当地有两个公安局，一个是州公安局，一个是市公安局。上线当天，我们原定在州公安局开新闻发布会，市公安局这边会同步进行。但就在当天早上，我被客户叫到了市公安局，本该去参加发布会的我被临时调动。客户告诉我，市公安局的大领导、局长可能会来问些问题，让我再去给他讲讲我们的系统。于是我直接去了市公安局，没有去参加发布会。\n\n当时叫我去的是客户那边的对接人，一位指挥长。在他们开新闻发布会的时候，我们就在后面聊天，并给他讲一些系统的事情，因为我们关系都比较熟了。发布会结束后，公安局的局长说要让我调一份接警的录音出来。这事儿是因为他们下面有一个派出所警员在接警过程中，对接警员的态度不好，局长比较生气，说要调出证据去处罚他，认为他既然对自己的同志态度都不好，那对待民众的态度肯定会更不好。他只要那份录音文件，让我从我们的系统里导出来。\n\n局长要在他们全市的公安局领导面前播放这份录音，但是他们播放的设备不能直接登录我们的系统，所以我需要把录音文件导出来，再插到他们播放的电脑上去播放。我找到U盘后，因为我在那块待的时间比较长，比较熟，就想把音频文件直接导到他们的电脑上，然后播放出来。"""
+    pp = Paper(content)
+    pp.talk(' 帮我将上面文字中关于u盘的内容删除')
+    print(pp.content)
 
 def test_paper():
+    
     # 在一张白纸上作画
     pp = Paper("你好 世界")
     x = pp.talk('你好')
@@ -38,56 +47,14 @@ def test_paper():
 
 
 
-###########
 
 
 
-def test__():
-
-    # # 1. 导入必要的类和外部 LLM 调用函数
-    from llm_councilz.meeting.core import MeetingOrganizer # 暂时使用模拟函数
-
-    # 2. 创建会议组织者
-    organizer = MeetingOrganizer()
-
-    # 3. 设置外部 LLM 调用函数 (!!! 重要步骤，连接框架和您的能力)
-    # organizer.set_llm_caller(call_your_llm_api) # 在实际使用时，取消注释并替换
-
-    # 4. 添加参与者 (LLM)
-    organizer.add_participant(name="专家A", model_name="gpt-4o")
-    organizer.add_participant(name="专家B", model_name="gpt-4.1")
-    # organizer.add_participant(name="专家C", model_name="model-gamma")
-
-    # 5. 设置会议主题
-    topic = "制定一个针对中小型企业的数字化转型方案"
-    background = "考虑到成本和实施难度，方案应侧重于易于落地和快速见效。"
-    organizer.set_topic(topic, background)
-
-    # 6. 运行一轮简单的会议
-    organizer.run_simple_round()
-
-    # 7. 获取讨论历史和简单摘要
-    organizer.display_history() # 打印格式化历史
-
-    simple_summary = organizer.get_simple_summary()
-    print("\nGenerated Simple Summary:")
-    print(simple_summary)
-
-# from program_writing_assistant.core__2 import EditCode
-
-
-# def test_edit():
-#     py_file = 'tests/temp_file/file.py'
-#     with open(py_file,'w') as f:
-#         f.write("print('hello world')")
-#     ec = EditCode(py_file)
-#     ec.edit('改成 你好 世界')
-#     with open(py_file,'r') as f:
-#         tt = f.read()
-#     assert "你好" in tt
-    
-
-
+#############
+# 1 编写自动化构建web服务
+# 2 编写自动化构建框架服务
+# 3 编写自动化实现低难度框架
+# 4 
 
 
 #############
@@ -217,17 +184,4 @@ class Memo():
     result = gener_post_server_multi(prompt=code)
     super_print(result,'post_server')
 
-
-
-
-# from prompt_writing_assistant.draw import Paper
-
-# def test_draw_paper():
-#     """
-#     在一个固定画板上编辑文本
-#     """
-#     content = """我在凉山州做项目期间，曾替客户背过一次“黑锅”。那次是我们接处警的项目刚刚上线，因为项目是在凉山州做的，所以我们在西昌市驻扎。当地有两个公安局，一个是州公安局，一个是市公安局。上线当天，我们原定在州公安局开新闻发布会，市公安局这边会同步进行。但就在当天早上，我被客户叫到了市公安局，本该去参加发布会的我被临时调动。客户告诉我，市公安局的大领导、局长可能会来问些问题，让我再去给他讲讲我们的系统。于是我直接去了市公安局，没有去参加发布会。\n\n当时叫我去的是客户那边的对接人，一位指挥长。在他们开新闻发布会的时候，我们就在后面聊天，并给他讲一些系统的事情，因为我们关系都比较熟了。发布会结束后，公安局的局长说要让我调一份接警的录音出来。这事儿是因为他们下面有一个派出所警员在接警过程中，对接警员的态度不好，局长比较生气，说要调出证据去处罚他，认为他既然对自己的同志态度都不好，那对待民众的态度肯定会更不好。他只要那份录音文件，让我从我们的系统里导出来。\n\n局长要在他们全市的公安局领导面前播放这份录音，但是他们播放的设备不能直接登录我们的系统，所以我需要把录音文件导出来，再插到他们播放的电脑上去播放。我找到U盘后，因为我在那块待的时间比较长，比较熟，就想把音频文件直接导到他们的电脑上，然后播放出来。"""
-#     pp = Paper(content)
-#     pp.talk(' 帮我将上面文字中关于u盘的内容删除')
-#     print(pp.content)
 

@@ -1,14 +1,25 @@
-from prompt_writing_assistant.utils import get_adler32_hash, embedding_inputs
 from db_help.mysql import MySQLManagerWithVersionControler
 from db_help.qdrant import QdrantManager
+from pydantic import BaseModel
 from datetime import datetime
+from prompt_writing_assistant.utils import get_adler32_hash, embedding_inputs
+from prompt_writing_assistant.prompt_helper import Intel, IntellectType
+from prompt_writing_assistant.utils import extract_
 from enum import Enum
+import json
 
+intel = Intel(host = "127.0.0.1",
+              user = 'root',
+              password = "1234",
+              database = "prompts",
+              table_name ="prompts_data"
+              )
 
 class TextType(Enum):
     Code = 0
     Prompt = 1
-
+    Tips = 2
+    Experience = 3
 
 class ContentManager():
     def __init__(self,host=None, user=None, password=None, database=None):
@@ -26,6 +37,35 @@ class ContentManager():
         self.neo = None
 
     
+    @intel.intellect_2(IntellectType.inference,
+                    prompt_id = "db_help_001",
+                    demand="""
+name 后面加一个4位随机数字防止重复
+    """)
+    def diverter(self,input:dict):
+        # 根据需求修改程序框图
+        input = json.loads(extract_(input,pattern_key=r"json"))
+
+        class Output(BaseModel):
+            name : str
+            type : int
+            note : str
+
+        Output(**input)
+        return input
+
+
+    def save_content_auto(self,text:str):
+        
+        output = self.diverter(input = {"text":text})
+        print(output,'output')
+        self.save_content(text = text,
+                          name = output.get("name"),
+                          type = output.get("type"),
+                          )
+
+
+
     def save_content(self,text:str,name:str,type:int | TextType)->str:
         # 数据库维护版本, 而向量库只保持最新
 
@@ -78,38 +118,4 @@ class ContentManager():
                                 collection_name = self.table_name,
                                 limit = limit)
         return result
-
-
-# from prompt_writing_assistant.prompt_helper import Intel, IntellectType
-
-# from prompt_writing_assistant.utils import extract_json
-
-# import json
-
-# from llama_index.core.storage.docstore import BaseDocumentStore
-
-# from llama_index.core import VectorStoreIndex,StorageContext
-
-# intel = Intel(host = "127.0.0.1",user = 'root',password = "1234",database = "prompts")
-
-# # 我希望做一个分流器, 将输入的内容分类为以下几类:
-# # 1 经验心得
-# # 2 提示词存储
-# # 3 代码片段
-# # 4 备忘录
-
-# @intel.intellect(IntellectType.inference,
-#                  prompt_id = "db_help_001",
-#                  table_name ="prompts_data",
-#                  demand="""
-# 包名不要使用大写
-# 这类的应该属于经验心得, 
-# """)
-# def diverter(content,wang):
-#     # 根据需求修改程序框图
-#     content = json.loads(extract_json(content))
-#     # print(wang)
-#     return content,wang
-
-# diverter(demo1,"天天形式")
-
+    
