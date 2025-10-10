@@ -10,9 +10,12 @@ import functools
 import json
 import os
 
-
-
 from llama_index.core import PromptTemplate
+
+from prompt_writing_assistant.database import Base, Prompt, UseCase
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker, declarative_base
+from prompt_writing_assistant.utils import create_session
 
 evals_prompt = '''
 你是一名高级内容评审AI。你的任务是根据提供的多方面信息，对大模型生成的内容进行全面、客观的评价，并给出具体的、可操作的改进意见。
@@ -111,10 +114,9 @@ change_by_opinion_prompt = """
 
 
 
-
 logger = Log.logger
-def editing_log(content):
-    logger.debug(content)
+editing_log = logger.debug
+
 
 class IntellectType(Enum):
     train = "train"
@@ -129,36 +131,36 @@ class Intel():
                  database = None,
                  table_name = None,
                 ):
-        self.db_manager = MySQLManager(
-            host = host or os.environ.get("MySQL_DB_HOST"), 
-            user = user or os.environ.get("MySQL_DB_USER"), 
-            password = password or os.environ.get("MySQL_DB_PASSWORD"), 
-            database= database or os.environ.get("MySQL_DB_NAME")
-            )
-        self.db_manager._connect()
+
+        database_url = "mysql+pymysql://root:1234@localhost:3306/prompts"
+        self.engine = create_engine(database_url, echo=True) # echo=True 仍然会打印所有执行的 SQL 语句
+        Base.metadata.create_all(self.engine)
+
+
+        # self.db_manager._connect()
         self.bx = BianXieAdapter()
         self.table_name = table_name
             
         
-    def _get_latest_prompt_version(self,target_prompt_id,table_name):
+    def _get_latest_prompt_version(self,target_prompt_id):
         """
         获取指定 prompt_id 的最新版本数据，通过创建时间判断。
         """
-        query = f"""
-            SELECT id, prompt_id, version, timestamp, prompt, use_case
-            FROM {table_name}
-            WHERE prompt_id = %s
-            ORDER BY timestamp DESC, version DESC -- 如果时间相同，再按version降序排
-            LIMIT 1
-        """
-        result = self.db_manager.execute_query(query, params=(target_prompt_id,), fetch_one=True)
+        with create_session(self.engine) as session:
+            result = session.query(Prompt).filter(
+                Prompt.prompt_id == target_prompt_id
+            ).order_by(
+                Prompt.timestamp.desc(),
+                Prompt.version.desc()
+            ).first()
+
         if result:
-            editing_log(f"找到 prompt_id '{target_prompt_id}' 的最新版本 (基于时间): {result['version']}")
+            editing_log(f"找到 prompt_id '{target_prompt_id}' 的最新版本 (基于时间): {result.version}")
         else:
             editing_log(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
         return result
 
-    def _get_specific_prompt_version(self,target_prompt_id, target_version, table_name):
+    def _get_specific_prompt_version(self,target_prompt_id, target_version):
         """
         获取指定 prompt_id 和特定版本的数据。
 
@@ -172,16 +174,14 @@ class Intel():
             dict or None: 如果找到，返回包含 id, prompt_id, version, timestamp, prompt 字段的字典；
                         否则返回 None。
         """
-        query = f"""
-            SELECT id, prompt_id, version, timestamp, prompt, use_case
-            FROM {table_name}
-            WHERE prompt_id = %s AND version = %s
-            LIMIT 1
-        """
-        
-        # 组合参数，顺序与 query 中的 %s 对应
-        params = (target_prompt_id, target_version)
-        result = self.db_manager.execute_query(query, params=params, fetch_one=True)
+
+        with create_session(self.engine) as session:
+
+            result = session.query(Prompt).filter(
+                Prompt.prompt_id == target_prompt_id,
+                Prompt.version == target_version
+            ).first() # 因为 (prompt_id, version) 是唯一的，所以 first() 足够
+
         if result:
             editing_log(f"找到 prompt_id '{target_prompt_id}', 版本 '{target_version}' 的提示词数据。")
         else:
@@ -189,7 +189,6 @@ class Intel():
         return result
 
     def get_prompts_from_sql(self,
-                             table_name: str,
                              prompt_id: str,
                              version = None,
                              return_use_case = False) -> tuple[str, int]:
@@ -199,17 +198,19 @@ class Intel():
 
         # 查看是否已经存在
         if version:
-            user_by_id_1 = self._get_specific_prompt_version(prompt_id,version,table_name)
+            user_by_id_1 = self._get_specific_prompt_version(prompt_id,version)
             if user_by_id_1:
                 # 如果存在获得
-                prompt = user_by_id_1.get("prompt")
+                # prompt = user_by_id_1.get("prompt")
+                prompt = user_by_id_1.prompt
                 status = 1
             else:
                 # 否则提示warning 然后调用最新的
-                user_by_id_1 = self._get_latest_prompt_version(prompt_id,table_name)
+                user_by_id_1 = self._get_latest_prompt_version(prompt_id)
                 if user_by_id_1:
                     # 打印正在使用什么版本
-                    prompt = user_by_id_1.get("prompt")
+                    # prompt = user_by_id_1.get("prompt")
+                    prompt = user_by_id_1.prompt
                     status = 1
                 else:
                     # 打印, 没有找到 warning 
@@ -219,10 +220,12 @@ class Intel():
                 status = 1
 
         else:
-            user_by_id_1 = self._get_latest_prompt_version(prompt_id,table_name)
+            user_by_id_1 = self._get_latest_prompt_version(prompt_id)
             if user_by_id_1:
                 # 如果存在获得
-                prompt = user_by_id_1.get("prompt")
+                # prompt = user_by_id_1.get("prompt")
+                prompt = user_by_id_1.prompt
+
                 status = 1
             else:
                 # 如果没有则返回空
@@ -234,14 +237,13 @@ class Intel():
             return prompt, status
         else:
             if user_by_id_1:
-                editing_log(user_by_id_1.keys())
-                return prompt, status, user_by_id_1.get('use_case',' 空 ')
+                editing_log(user_by_id_1)
+                return prompt, status, user_by_id_1.use_case #user_by_id_1.get('use_case',' 空 ')
             else:
                 return prompt, status, ' 空 '
 
 
     def save_prompt_by_sql(self,
-                           table_name: str,
                            prompt_id: str,
                            new_prompt: str,
                            input_data:str = ""):
@@ -249,11 +251,11 @@ class Intel():
         从sql保存提示词
         """
         # 查看是否已经存在
-        user_by_id_1 = self._get_latest_prompt_version(prompt_id,table_name)
+        user_by_id_1 = self._get_latest_prompt_version(prompt_id)
         
         if user_by_id_1:
             # 如果存在版本加1
-            version_ori = user_by_id_1.get("version")
+            version_ori = user_by_id_1.version
             _, version = version_ori.split(".")
             version = int(version)
             version += 1
@@ -262,30 +264,41 @@ class Intel():
         else:
             # 如果不存在版本为1.0
             version_ = '1.0'
-        _id = self.db_manager.insert(table_name, {'prompt_id': prompt_id, 
-                                                'version': version_, 
-                                                'timestamp': datetime.now(),
-                                                "prompt":new_prompt,
-                                                "use_case":input_data})
+        with create_session(self.engine) as session:
+        
+            prompt1 = Prompt(prompt_id=prompt_id, 
+                           version=version_,
+                           timestamp=datetime.now(),
+                           prompt = new_prompt,
+                           use_case = input_data,
+                           )
+
+            session.add(prompt1)
+            session.commit() # 提交事务，将数据写入数据库
+
+
         
     def save_use_case_by_sql(self,
                              prompt_id: str,
-                            table_name = "",
-                            use_case:str = "",
-                            solution: str = ""
+                             use_case:str = "",
+                             solution: str = ""
                             ):
         """
         从sql保存提示词
         """
-        _id = self.db_manager.insert(table_name, {'prompt_id': prompt_id, 
-                                            "use_case":use_case,
-                                            "solution":solution})
+        with create_session(self.engine) as session:
+            use_case = UseCase(prompt_id=prompt_id, 
+                           use_case = use_case,
+                           solution = solution,
+                           )
+
+            session.add(use_case)
+            session.commit() # 提交事务，将数据写入数据库
 
 
     def intellect(self,
                   type: str,
                   prompt_id: str,
-                  table_name: str,
                   demand: str = None,
                   version: str = None, 
                   ):
@@ -307,7 +320,7 @@ class Intel():
 
                 # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
                 # prompt, states = get_prompt(prompt_id)
-                prompt, states, before_input = self.get_prompts_from_sql(table_name,prompt_id,version,
+                prompt, states, before_input = self.get_prompts_from_sql(prompt_id,version,
                                                     return_use_case = True)
                 if input_ == "":
                     input_ = "无"
@@ -335,7 +348,7 @@ class Intel():
                     
                     ai_result = self.bx.product(input_prompt)
                     chat_history = input_prompt + "\nassistant:\n" + ai_result # 用聊天记录作为完整提示词
-                    self.save_prompt_by_sql(table_name, prompt_id, chat_history,
+                    self.save_prompt_by_sql(prompt_id, chat_history,
                                     input_data = input_)
                     output_ = ai_result
 
@@ -343,7 +356,6 @@ class Intel():
                     if states == 1:
                         ai_result = self.bx.product(prompt + "\n-----input----\n" +  input_)
                         self.save_use_case_by_sql(prompt_id,
-                                            table_name = "use_case",
                                             use_case = input_,
                                             solution = ""
                                             )
@@ -363,10 +375,10 @@ class Intel():
                         # s_prompt = extract_prompt(system_reuslt)
                         s_prompt = extract_(system_reuslt,pattern_key=r"prompt")
                         if s_prompt:
-                            self.save_prompt_by_sql(table_name,prompt_id, s_prompt,
+                            self.save_prompt_by_sql(prompt_id, s_prompt,
                                             input_data = " summary ")
                         else:
-                            self.save_prompt_by_sql(table_name,prompt_id, system_reuslt,
+                            self.save_prompt_by_sql(prompt_id, system_reuslt,
                                             input_data = " summary ")
 
 
@@ -417,7 +429,7 @@ class Intel():
 
                 # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
                 # prompt, states = get_prompt(prompt_id)
-                prompt, states, before_input = self.get_prompts_from_sql(self.table_name,prompt_id,version,
+                prompt, states, before_input = self.get_prompts_from_sql(prompt_id,version,
                                                     return_use_case = True)
                 if input_ == "":
                     input_ = "无"
@@ -444,7 +456,7 @@ class Intel():
                     
                     ai_result = self.bx.product(input_prompt)
                     chat_history = input_prompt + "\nassistant:\n" + ai_result # 用聊天记录作为完整提示词
-                    self.save_prompt_by_sql(self.table_name, prompt_id, chat_history,
+                    self.save_prompt_by_sql(prompt_id, chat_history,
                                     input_data = input_)
                     output_ = ai_result
 
@@ -453,7 +465,6 @@ class Intel():
                         chat_history = prompt
                         ai_result = self.bx.product(chat_history + "\n-----input----\n" +  input_)
                         self.save_use_case_by_sql(prompt_id,
-                                            table_name = "use_case",
                                             use_case = input_,
                                             solution = ""
                                             )
@@ -473,10 +484,10 @@ class Intel():
                         # s_prompt = extract_prompt(system_reuslt)
                         s_prompt = extract_(system_reuslt,pattern_key=r"prompt")
                         if s_prompt:
-                            self.save_prompt_by_sql(self.table_name,prompt_id, s_prompt,
+                            self.save_prompt_by_sql(prompt_id, s_prompt,
                                             input_data = " summary ")
                         else:
-                            self.save_prompt_by_sql(self.table_name,prompt_id, system_reuslt,
+                            self.save_prompt_by_sql(prompt_id, system_reuslt,
                                             input_data = " summary ")
 
 
@@ -501,7 +512,7 @@ class Intel():
     #               version: str = None, 
     #               ):
 
-    #     prompt, states, before_input = self.get_prompts_from_sql(self.table_name,prompt_id,version,
+    #     prompt, states, before_input = self.get_prompts_from_sql(,prompt_id,version,
     #                                 return_use_case = True)
         
     #     # 构建 test_cases
@@ -599,7 +610,7 @@ class Intel():
 
     #             # 通过id 获取是否有prompt 如果没有则创建 prompt = "", state 0  如果有则调用, state 1
     #             # prompt, states = get_prompt(prompt_id)
-    #             prompt, states, before_input = self.get_prompts_from_sql(self.table_name,prompt_id,version,
+    #             prompt, states, before_input = self.get_prompts_from_sql(,prompt_id,version,
     #                                                 return_use_case = True)
                 
     #             # 这里有两种优化方向
@@ -710,15 +721,13 @@ class Intel():
     def prompt_finetune_to_sql(
             self,
             prompt_id:str,
-            table_name: str,
             version = None,
             demand: str = "",
         ):
         """
         让大模型微调已经存在的system_prompt
         """
-        table_name = table_name or os.environ.get("MySQL_DB_Table_Name")
-        prompt, _ = self.get_prompts_from_sql(prompt_id = prompt_id,version = version,table_name = table_name)
+        prompt, _ = self.get_prompts_from_sql(prompt_id = prompt_id,version = version)
         if demand:
             new_prompt = self.bx.product(
                 change_by_opinion_prompt.format(old_system_prompt=prompt, opinion=demand)
@@ -726,9 +735,8 @@ class Intel():
         else:
             new_prompt = prompt
         self.save_prompt_by_sql(prompt_id = prompt_id,
-                        new_prompt = new_prompt,
-                        table_name = table_name,
-                        input_data = " ")
+                            new_prompt = new_prompt,
+                            input_data = " ")
         print('success')
 
 
@@ -781,6 +789,40 @@ class Base_Evals():
         assert success_rate >= self.MIN_SUCCESS_RATE, \
             f"Test failed: Success rate {success_rate:.2f}% is below required {self.MIN_SUCCESS_RATE:.2f}%." + \
             f"\nFailed cases details:\n" + "\n".join(failed_cases)
+
+    def get_success_rate_for_auto(self,test_cases:list[tuple]):
+        """
+                # 这里定义数据
+
+        """
+
+        successful_assertions = 0
+        total_assertions = len(test_cases)
+        result_cases = []
+
+        for i, params in enumerate(test_cases):
+            try:
+                # 这里将参数传入
+                self._assert_eval_function(params)
+                successful_assertions += 1
+                result_cases.append({"type":"Successful","params":params,"remark":f"满足要求"})
+            except AssertionError as e:
+                result_cases.append({"type":"FAILED","params":params,"remark":f"ERROR {e}"})
+            except Exception as e: # 捕获其他可能的错误
+                result_cases.append({"type":"FAILED","params":params,"remark":f"ERROR {e}"})
+
+
+        success_rate = (successful_assertions / total_assertions) * 100
+        print(f"\n--- Aggregated Results ---")
+        print(f"Total test cases: {total_assertions}")
+        print(f"Successful cases: {successful_assertions}")
+        print(f"Success Rate: {success_rate:.2f}%")
+
+        if success_rate >= self.MIN_SUCCESS_RATE:
+            return "pass",result_cases
+        else:
+            return "nopass",result_cases
+
 
     def llm_evals(
         self,

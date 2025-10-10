@@ -1781,3 +1781,1381 @@
 2025-10-09 11:04:45,907 - DEBUG - httpcore.connection - _trace:47 - close.complete
 2025-10-09 11:04:45,914 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
 2025-10-09 11:04:45,925 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-10-09 13:10:49,391 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:10:49,394 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:10:49,395 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:10:49,395 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:10:49,395 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:10:49,395 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:10:49,395 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:10:49,395 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:10:49,395 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:10:49,453 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:10:49,455 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x122e42cf0>
+2025-10-09 13:10:49,455 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:10:49,455 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:10:49,455 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:10:49,455 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:10:49,455 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:10:49,466 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:10:49 GMT')])
+2025-10-09 13:10:49,466 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:10:49,466 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:10:49,467 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:10:49,467 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:10:49,467 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:10:49,467 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:10:49,467 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:10:49,480 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:11:34,673 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:11:34,677 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:11:34,677 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:11:34,677 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:11:34,677 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:11:34,677 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:11:34,677 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:11:34,678 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:11:34,678 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:11:34,733 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:11:34,735 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10ad42cf0>
+2025-10-09 13:11:34,735 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:11:34,735 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:11:34,735 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:11:34,735 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:11:34,735 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:11:34,743 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:11:34 GMT')])
+2025-10-09 13:11:34,743 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:11:34,743 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:11:34,743 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:11:34,743 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:11:34,743 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:11:34,743 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:11:34,743 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:11:34,763 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:11:34,769 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:41 - Adding resource
+2025-10-09 13:11:34,773 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:11:34,792 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 13:38:08,935 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 13:38:12,326 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:38:54,713 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:38:54,717 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:38:54,717 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:38:54,717 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:38:54,717 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:38:54,717 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:38:54,717 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:38:54,717 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:38:54,717 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:38:54,775 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:38:54,777 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x11a746e40>
+2025-10-09 13:38:54,777 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:38:54,777 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:38:54,777 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:38:54,777 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:38:54,777 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:38:54,782 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Thu, 09 Oct 2025 05:38:54 GMT')])
+2025-10-09 13:38:54,783 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:38:54,783 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:38:54,783 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:38:54,783 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:38:54,783 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:38:54,783 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:38:54,783 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:38:54,804 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:38:54,809 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Prompt Example'
+2025-10-09 13:38:54,809 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:38:54,810 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:38:54,810 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:38:54,810 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:38:54,810 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:38:54,810 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:38:54,810 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:38:54,821 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:41 - Adding resource
+2025-10-09 13:38:54,826 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:38:54,844 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 13:41:33,536 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 13:41:43,747 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:41:43,751 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:41:43,751 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:41:43,751 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:41:43,751 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:41:43,751 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:41:43,751 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:41:43,751 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:41:43,751 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:41:43,813 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:41:43,814 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1200da660>
+2025-10-09 13:41:43,815 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:41:43,815 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:41:43,815 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:41:43,815 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:41:43,815 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:41:43,823 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:41:43 GMT')])
+2025-10-09 13:41:43,823 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:41:43,823 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:41:43,824 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:41:43,824 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:41:43,824 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:41:43,824 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:41:43,824 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:41:43,838 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:41:43,843 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Prompt Example'
+2025-10-09 13:41:43,843 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:41:43,843 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:41:43,843 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:41:43,843 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:41:43,843 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:41:43,843 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:41:43,843 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:41:43,854 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:41 - Adding resource
+2025-10-09 13:45:47,039 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:45:47,043 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:45:47,043 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:45:47,043 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:45:47,043 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:45:47,043 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:45:47,043 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:45:47,043 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:45:47,043 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:45:47,103 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:45:47,105 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10ffda660>
+2025-10-09 13:45:47,105 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:45:47,105 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:45:47,105 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:45:47,105 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:45:47,105 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:45:47,114 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:45:46 GMT')])
+2025-10-09 13:45:47,114 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:45:47,114 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:45:47,114 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:45:47,115 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:45:47,115 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:45:47,115 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:45:47,115 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:45:47,132 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:45:47,137 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Prompt Example'
+2025-10-09 13:45:47,137 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:45:47,137 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:45:47,137 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:45:47,137 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:45:47,137 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:45:47,138 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:45:47,138 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:45:47,149 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:41 - Adding resource
+2025-10-09 13:45:48,894 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:45:48,898 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:45:48,898 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:45:48,898 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:45:48,898 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:45:48,898 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:45:48,898 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:45:48,899 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:45:48,899 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:45:48,948 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:45:48,949 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1226d2a50>
+2025-10-09 13:45:48,949 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:45:48,949 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:45:48,949 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:45:48,949 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:45:48,949 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:45:48,953 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Thu, 09 Oct 2025 05:45:48 GMT')])
+2025-10-09 13:45:48,954 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:45:48,954 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:45:48,954 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:45:48,954 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:45:48,954 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:45:48,954 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:45:48,954 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:45:48,974 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:45:48,979 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Prompt Example'
+2025-10-09 13:45:48,979 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:45:48,979 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:45:48,979 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:45:48,979 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:45:48,979 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:45:48,979 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:45:48,979 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:45:48,990 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:41 - Adding resource
+2025-10-09 13:45:48,994 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:54:47,741 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:54:47,745 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:54:47,745 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:54:47,745 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:54:47,745 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:54:47,745 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:54:47,745 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:54:47,745 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:54:47,745 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:54:47,807 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:54:47,809 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x120bd2a50>
+2025-10-09 13:54:47,809 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:54:47,810 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:54:47,810 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:54:47,810 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:54:47,810 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:54:47,818 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:54:47 GMT')])
+2025-10-09 13:54:47,818 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:54:47,818 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:54:47,818 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:54:47,818 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:54:47,818 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:54:47,819 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:54:47,819 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:54:47,835 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:54:47,840 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Prompt Example'
+2025-10-09 13:54:47,840 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:54:47,841 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:54:47,841 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:54:47,841 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:54:47,841 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:54:47,841 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:54:47,841 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:54:47,852 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:41 - Adding resource
+2025-10-09 13:54:47,857 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:56:07,925 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:56:07,929 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:56:07,930 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:56:07,930 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:56:07,930 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:56:07,930 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:56:07,930 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:56:07,930 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:56:07,930 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:56:07,990 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:56:07,992 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1194cea50>
+2025-10-09 13:56:07,992 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:56:07,992 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:56:07,992 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:56:07,992 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:56:07,992 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:56:08,008 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:56:07 GMT')])
+2025-10-09 13:56:08,008 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:56:08,009 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:56:08,009 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:56:08,009 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:56:08,009 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:56:08,009 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:56:08,009 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:56:08,044 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:56:08,049 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Prompt Example'
+2025-10-09 13:56:08,049 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:56:08,049 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:56:08,049 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:56:08,050 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:56:08,050 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:56:08,050 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:56:08,050 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:56:08,062 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:41 - Adding resource
+2025-10-09 13:56:08,067 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:56:15,867 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:56:15,871 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:56:15,871 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:56:15,871 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:56:15,871 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:56:15,871 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:56:15,871 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:56:15,871 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:56:15,871 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:56:15,960 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:56:15,961 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x11c4cea50>
+2025-10-09 13:56:15,962 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:56:15,962 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:56:15,962 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:56:15,962 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:56:15,962 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:56:15,973 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Thu, 09 Oct 2025 05:56:15 GMT')])
+2025-10-09 13:56:15,973 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:56:15,973 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:56:15,973 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:56:15,973 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:56:15,973 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:56:15,974 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:56:15,974 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:56:16,014 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:56:16,022 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Prompt Example'
+2025-10-09 13:56:16,022 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:56:16,022 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:56:16,022 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:56:16,022 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:56:16,022 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:56:16,022 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:56:16,022 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:56:16,040 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:56:28,553 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:56:28,557 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:56:28,557 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:56:28,557 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:56:28,557 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:56:28,557 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:56:28,557 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:56:28,557 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:56:28,557 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:56:28,669 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:56:28,671 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x115fc6cf0>
+2025-10-09 13:56:28,671 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:56:28,671 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:56:28,671 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:56:28,671 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:56:28,671 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:56:28,681 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:56:28 GMT')])
+2025-10-09 13:56:28,682 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:56:28,682 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:56:28,682 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:56:28,682 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:56:28,682 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:56:28,682 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:56:28,682 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:56:28,699 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:56:28,704 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Prompt Example'
+2025-10-09 13:56:28,705 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:56:28,705 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:56:28,705 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:56:28,705 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:56:28,705 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:56:28,705 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:56:28,705 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:56:28,719 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:56:44,248 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:56:50,453 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:56:50,458 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:56:50,458 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:56:50,458 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:56:50,458 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:56:50,458 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:56:50,458 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:56:50,458 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:56:50,458 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:56:50,533 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:56:50,535 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1231c6cf0>
+2025-10-09 13:56:50,535 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:56:50,535 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:56:50,535 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:56:50,535 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:56:50,535 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:56:50,543 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:56:50 GMT')])
+2025-10-09 13:56:50,543 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:56:50,543 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:56:50,543 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:56:50,544 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:56:50,544 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:56:50,544 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:56:50,544 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:56:50,566 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:56:50,571 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Prompt Example'
+2025-10-09 13:56:50,571 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:56:50,571 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:56:50,571 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:56:50,572 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:56:50,572 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:56:50,572 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:56:50,572 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:56:50,584 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:57:14,715 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:57:14,721 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:57:14,721 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:57:14,722 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:57:14,722 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:57:14,722 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:57:14,722 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:57:14,722 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:57:14,722 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:57:14,786 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:57:14,788 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x12cace900>
+2025-10-09 13:57:14,788 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:57:14,788 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:57:14,788 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:57:14,788 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:57:14,788 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:57:14,796 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Thu, 09 Oct 2025 05:57:14 GMT')])
+2025-10-09 13:57:14,796 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:57:14,796 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:57:14,796 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:57:14,796 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:57:14,796 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:57:14,796 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:57:14,796 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:57:14,821 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:57:14,838 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:57:17,847 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:57:17,851 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:57:17,851 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:57:17,851 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:57:17,851 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:57:17,851 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:57:17,851 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:57:17,851 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:57:17,852 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:57:17,905 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:57:17,908 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1310ce900>
+2025-10-09 13:57:17,908 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:57:17,908 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:57:17,908 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:57:17,908 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:57:17,908 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:57:17,914 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:57:17 GMT')])
+2025-10-09 13:57:17,914 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:57:17,914 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:57:17,914 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:57:17,915 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:57:17,915 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:57:17,915 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:57:17,915 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:57:17,930 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:57:17,939 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:58:07,574 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:58:07,578 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:58:07,578 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:58:07,578 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:58:07,578 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:58:07,579 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:58:07,579 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:58:07,579 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:58:07,579 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:58:07,644 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:58:07,646 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1229ce900>
+2025-10-09 13:58:07,646 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:58:07,646 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:58:07,646 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:58:07,646 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:58:07,646 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:58:07,655 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 05:58:07 GMT')])
+2025-10-09 13:58:07,655 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:58:07,655 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:58:07,655 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:58:07,655 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:58:07,656 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:58:07,656 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:58:07,656 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:58:07,665 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 13:58:15,138 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 13:58:15,142 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 13:58:15,143 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 13:58:15,143 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 13:58:15,143 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 13:58:15,143 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 13:58:15,143 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 13:58:15,143 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 13:58:15,143 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 13:58:15,202 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 13:58:15,203 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1317ce900>
+2025-10-09 13:58:15,204 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 13:58:15,204 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 13:58:15,204 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 13:58:15,204 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 13:58:15,204 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 13:58:15,207 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Thu, 09 Oct 2025 05:58:14 GMT')])
+2025-10-09 13:58:15,208 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 13:58:15,208 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 13:58:15,208 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 13:58:15,208 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 13:58:15,208 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 13:58:15,208 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 13:58:15,208 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 13:58:15,215 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:00:16,517 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:00:16,522 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 14:00:16,522 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:00:16,522 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:00:16,522 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:00:16,522 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:00:16,522 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:00:16,522 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:00:16,522 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:00:16,585 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 14:00:16,586 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10a5e6900>
+2025-10-09 14:00:16,586 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:16,586 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 14:00:16,586 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 14:00:16,586 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 14:00:16,586 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:16,595 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 06:00:16 GMT')])
+2025-10-09 14:00:16,596 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 14:00:16,596 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 14:00:16,596 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 14:00:16,596 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 14:00:16,596 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 14:00:16,596 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 14:00:16,596 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 14:00:16,604 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:00:24,964 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:00:24,967 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 14:00:24,968 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:00:24,968 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:00:24,968 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:00:24,968 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:00:24,968 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:00:24,968 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:00:24,968 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:00:25,030 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 14:00:25,031 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10a486900>
+2025-10-09 14:00:25,031 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:25,031 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 14:00:25,031 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 14:00:25,031 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 14:00:25,031 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:25,041 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 06:00:24 GMT')])
+2025-10-09 14:00:25,041 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 14:00:25,041 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 14:00:25,041 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 14:00:25,041 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 14:00:25,041 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 14:00:25,042 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 14:00:25,042 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 14:00:25,049 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:00:29,221 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:00:29,226 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 14:00:29,226 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:00:29,226 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:00:29,226 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:00:29,226 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:00:29,226 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:00:29,226 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:00:29,226 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:00:29,343 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 14:00:29,344 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x12bcce900>
+2025-10-09 14:00:29,344 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:29,344 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 14:00:29,344 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 14:00:29,344 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 14:00:29,344 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:29,353 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Thu, 09 Oct 2025 06:00:29 GMT')])
+2025-10-09 14:00:29,353 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 14:00:29,354 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 14:00:29,354 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 14:00:29,354 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 14:00:29,354 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 14:00:29,354 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 14:00:29,354 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 14:00:29,361 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:00:32,343 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:00:32,347 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 14:00:32,347 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:00:32,347 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:00:32,348 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:00:32,348 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:00:32,348 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:00:32,348 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:00:32,348 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:00:32,399 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 14:00:32,400 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x120dce900>
+2025-10-09 14:00:32,400 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:32,400 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 14:00:32,400 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 14:00:32,400 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 14:00:32,400 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:32,408 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 06:00:32 GMT')])
+2025-10-09 14:00:32,409 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 14:00:32,409 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 14:00:32,409 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 14:00:32,409 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 14:00:32,409 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 14:00:32,409 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 14:00:32,409 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 14:00:32,416 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:00:42,394 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:00:42,399 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 14:00:42,399 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:00:42,399 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:00:42,399 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:00:42,400 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:00:42,400 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:00:42,400 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:00:42,400 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:00:42,461 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 14:00:42,463 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x11d8ce900>
+2025-10-09 14:00:42,463 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:42,463 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 14:00:42,463 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 14:00:42,463 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 14:00:42,463 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 14:00:42,469 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 06:00:42 GMT')])
+2025-10-09 14:00:42,469 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 14:00:42,469 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 14:00:42,469 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 14:00:42,469 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 14:00:42,470 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 14:00:42,470 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 14:00:42,470 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 14:00:42,477 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:02:10,814 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:02:17,135 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:02:28,210 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:02:34,675 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:02:41,349 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:02:41,354 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'FastMCP'
+2025-10-09 14:02:41,354 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:02:41,354 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:02:41,354 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:02:41,354 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:02:41,354 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:02:41,354 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:02:41,354 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:02:41,363 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:03:58,739 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:03:58,743 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'FastMCP'
+2025-10-09 14:03:58,743 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:03:58,743 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:03:58,743 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:03:58,743 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:03:58,743 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:03:58,744 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:03:58,744 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:03:58,752 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:04:37,441 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:04:37,447 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:04:37,447 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:04:37,447 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:04:37,447 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:04:37,447 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:04:37,447 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:04:37,447 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:04:37,447 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:04:37,455 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:09:02,583 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:09:02,586 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:09:02,586 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:09:02,586 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:09:02,587 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:09:02,587 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:09:02,587 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:09:02,587 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:09:02,587 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:09:02,596 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:16:25,187 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:16:25,191 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:16:25,191 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:16:25,191 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:16:25,191 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:16:25,191 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:16:25,191 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:16:25,192 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:16:25,192 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:16:27,001 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:16:27,004 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:16:27,004 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:16:27,004 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:16:27,004 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:16:27,005 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:16:27,005 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:16:27,005 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:16:27,005 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:16:27,011 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:16:27,037 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 14:17:04,325 - DEBUG - mcp.server.streamable_http_manager - streamable_http_manager:160 - Stateless mode: Creating new transport for this request
+2025-10-09 14:17:04,332 - DEBUG - mcp.server.streamable_http - streamable_http:463 - Closing SSE writer
+2025-10-09 14:17:04,332 - DEBUG - sse_starlette.sse - sse:179 - chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":0,"result":{"protocolVersion":"2025-06-18","capabilities":{"experimental":{},"prompts":{"listChanged":false},"resources":{"subscribe":false,"listChanged":false},"tools":{"listChanged":false}},"serverInfo":{"name":"EchoServer","version":"1.16.0"}}}\r\n\r\n'
+2025-10-09 14:17:04,332 - DEBUG - sse_starlette.sse - sse:200 - Got event: http.disconnect. Stop streaming.
+2025-10-09 14:17:04,333 - INFO - mcp.server.streamable_http - streamable_http:630 - Terminating session: None
+2025-10-09 14:17:04,337 - DEBUG - mcp.server.streamable_http_manager - streamable_http_manager:160 - Stateless mode: Creating new transport for this request
+2025-10-09 14:17:04,340 - INFO - mcp.server.streamable_http - streamable_http:630 - Terminating session: None
+2025-10-09 14:17:04,340 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-10-09 14:17:04,340 - DEBUG - root - session:426 - Read stream closed by client
+2025-10-09 14:17:04,342 - DEBUG - mcp.server.streamable_http_manager - streamable_http_manager:160 - Stateless mode: Creating new transport for this request
+2025-10-09 14:17:04,344 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x125d18410>
+2025-10-09 14:17:04,344 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type ListToolsRequest
+2025-10-09 14:17:04,344 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type ListToolsRequest
+2025-10-09 14:17:04,352 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 14:17:04,353 - DEBUG - mcp.server.streamable_http - streamable_http:463 - Closing SSE writer
+2025-10-09 14:17:04,353 - DEBUG - sse_starlette.sse - sse:179 - chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":1,"result":{"tools":[{"name":"add","description":"A simple add tool","inputSchema":{"properties":{"a":{"title":"a","type":"string"},"b":{"title":"b","type":"string"}},"required":["a","b"],"title":"addArguments","type":"object"}}]}}\r\n\r\n'
+2025-10-09 14:17:04,353 - DEBUG - sse_starlette.sse - sse:200 - Got event: http.disconnect. Stop streaming.
+2025-10-09 14:17:04,353 - INFO - mcp.server.streamable_http - streamable_http:630 - Terminating session: None
+2025-10-09 14:17:54,057 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 14:17:56,027 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:17:56,032 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:17:56,032 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:17:56,032 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:17:56,032 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:17:56,032 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:17:56,032 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:17:56,033 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:17:56,033 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:17:59,202 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:17:59,206 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:17:59,206 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:17:59,206 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:17:59,206 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:17:59,206 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:17:59,206 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:17:59,207 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:17:59,207 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:17:59,214 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:17:59,239 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 14:19:06,859 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 14:19:10,508 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:19:10,512 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:19:10,512 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:19:10,512 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:19:10,512 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:19:10,513 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:19:10,513 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:19:10,513 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:19:10,513 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:19:10,522 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:19:10,551 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 14:19:48,146 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 14:19:50,016 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:19:50,020 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:19:50,020 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:19:50,020 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:19:50,020 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:19:50,020 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:19:50,020 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:19:50,020 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:19:50,020 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:19:50,029 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:19:50,054 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 14:19:56,824 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 14:19:58,588 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:19:58,591 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:19:58,591 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:19:58,592 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:19:58,592 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:19:58,592 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:19:58,592 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:19:58,592 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:19:58,592 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:19:58,600 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:19:58,628 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 14:19:59,849 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 14:20:03,318 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:20:03,321 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:20:03,322 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:20:03,322 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:20:03,322 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:20:03,322 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:20:03,322 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:20:03,322 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:20:03,322 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:20:03,328 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:20:03,346 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 14:20:05,680 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 14:20:07,483 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 14:20:07,487 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 14:20:07,487 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 14:20:07,487 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 14:20:07,487 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 14:20:07,487 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 14:20:07,487 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 14:20:07,487 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 14:20:07,487 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 14:20:07,493 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 14:20:07,512 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:13:26,622 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:13:28,833 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:13:28,837 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:13:28,837 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:13:28,837 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:13:28,837 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:13:28,837 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:13:28,837 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:13:28,837 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:13:28,837 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:13:28,845 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:13:28,872 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:13:35,138 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:13:38,870 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:13:38,884 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:13:38,884 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:13:38,884 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:13:38,884 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:13:38,885 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:13:38,885 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:13:38,885 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:13:38,885 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:13:38,893 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:13:38,926 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:13:49,441 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:13:51,343 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:13:51,347 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:13:51,347 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:13:51,348 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:13:51,348 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:13:51,348 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:13:51,348 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:13:51,348 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:13:51,348 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:13:51,356 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:13:51,382 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:13:55,331 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:13:57,483 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:13:57,487 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:13:57,487 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:13:57,488 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:13:57,488 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:13:57,488 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:13:57,488 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:13:57,488 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:13:57,488 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:13:57,497 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:13:57,525 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:13:58,939 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:14:00,700 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:14:00,704 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:14:00,704 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:14:00,704 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:14:00,704 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:14:00,704 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:14:00,704 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:14:00,704 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:14:00,704 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:14:00,710 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:14:00,729 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:14:05,889 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:15:58,570 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:15:58,574 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:15:58,574 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:15:58,574 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:15:58,574 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:15:58,574 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:15:58,574 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:15:58,574 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:15:58,574 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:15:58,583 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:15:58,611 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:15:59,924 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:16:01,694 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:01,698 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:01,698 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:01,698 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:01,698 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:01,698 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:01,698 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:01,698 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:01,698 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:01,704 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:01,723 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:16:07,098 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:16:08,901 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:08,904 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:08,904 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:08,905 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:08,905 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:08,905 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:08,905 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:08,905 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:08,905 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:08,911 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:08,931 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:16:12,984 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:16:14,804 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:14,808 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:14,808 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:14,808 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:14,808 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:14,808 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:14,808 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:14,808 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:14,809 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:14,815 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:14,834 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:16:21,420 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:16:23,170 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:23,174 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:23,174 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:23,174 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:23,174 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:23,174 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:23,174 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:23,175 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:23,175 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:23,186 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:23,213 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:16:33,523 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:16:35,456 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:35,460 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:35,460 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:35,460 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:35,460 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:35,460 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:35,460 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:35,460 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:35,460 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:35,468 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:35,495 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:16:37,239 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:37,243 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:37,243 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:37,243 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:37,243 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:37,243 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:37,243 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:37,243 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:37,243 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:37,249 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:37,267 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:16:41,307 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:16:43,319 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:43,323 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:43,323 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:43,323 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:43,323 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:43,323 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:43,323 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:43,323 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:43,323 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:43,329 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:43,349 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:16:44,664 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:16:50,740 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:50,744 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:50,745 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:50,745 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:50,745 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:50,745 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:50,745 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:50,745 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:50,745 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:50,751 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:50,770 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:16:54,714 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:16:56,629 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:56,633 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:56,633 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:56,633 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:56,633 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:56,633 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:56,633 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:56,633 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:56,633 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:56,639 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:56,659 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:16:56,861 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:16:58,638 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:16:58,642 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:16:58,642 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:16:58,642 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:16:58,642 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:16:58,642 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:16:58,642 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:16:58,642 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:16:58,642 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:16:58,648 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:16:58,667 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:17:00,182 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:17:01,972 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:17:01,976 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:17:01,977 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:17:01,977 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:17:01,977 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:17:01,977 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:17:01,977 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:17:01,977 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:17:01,977 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:17:01,983 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:17:02,003 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:17:05,943 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:17:08,129 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:17:08,134 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:17:08,134 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:17:08,134 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:17:08,134 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:17:08,134 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:17:08,134 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:17:08,134 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:17:08,134 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:17:08,146 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:17:08,174 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:17:12,572 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:17:14,429 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:17:14,433 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:17:14,433 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:17:14,433 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:17:14,433 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:17:14,433 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:17:14,433 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:17:14,433 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:17:14,433 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:17:14,440 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:17:14,460 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:17:32,247 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:17:36,058 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:17:36,061 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:17:36,061 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:17:36,061 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:17:36,061 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:17:36,061 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:17:36,061 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:17:36,061 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:17:36,061 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:17:36,069 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:17:36,094 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:17:45,495 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:17:47,485 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:17:47,489 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:17:47,489 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:17:47,489 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:17:47,489 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:17:47,489 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:17:47,489 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:17:47,489 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:17:47,489 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:17:47,497 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:17:47,521 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:17:50,374 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:17:52,157 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:17:52,161 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:17:52,161 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:17:52,161 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:17:52,161 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:17:52,161 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:17:52,161 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:17:52,161 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:17:52,161 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:17:52,167 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:17:52,186 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:18:01,485 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:18:03,382 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:18:03,387 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:18:03,388 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:18:03,388 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:18:03,388 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:18:03,388 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:18:03,389 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:18:03,389 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:18:03,389 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:18:03,398 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:18:03,431 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:18:40,219 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:18:57,300 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:18:57,304 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:18:57,304 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:18:57,304 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:18:57,304 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:18:57,304 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:18:57,304 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:18:57,304 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:18:57,304 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:18:57,312 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:18:57,337 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:19:02,713 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:19:08,163 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:19:08,167 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:19:08,167 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:19:08,167 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:19:08,167 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:19:08,167 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:19:08,167 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:19:08,167 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:19:08,167 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:19:08,175 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:19:08,201 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:19:16,186 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:19:17,970 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:19:17,973 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:19:17,974 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:19:17,974 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:19:17,974 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:19:17,974 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:19:17,974 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:19:17,974 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:19:17,974 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:19:17,982 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:19:18,008 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:19:39,351 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:19:41,494 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:19:41,498 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:19:41,498 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:19:41,498 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:19:41,498 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:19:41,498 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:19:41,498 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:19:41,498 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:19:41,498 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:19:41,506 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:19:41,532 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:19:42,341 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:19:44,109 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:19:44,113 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:19:44,113 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:19:44,113 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:19:44,113 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:19:44,113 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:19:44,113 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:19:44,114 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:19:44,114 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:19:44,119 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:19:44,138 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:19:59,308 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:20:01,259 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:20:01,263 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:20:01,263 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:20:01,263 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:20:01,263 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:20:01,263 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:20:01,263 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:20:01,263 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:20:01,263 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:20:01,273 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:20:01,302 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:21:32,675 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:21:36,536 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:21:36,540 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:21:36,540 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:21:36,540 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:21:36,540 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:21:36,540 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:21:36,540 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:21:36,540 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:21:36,540 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:21:36,548 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:21:36,572 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:22:27,300 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:22:29,409 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:22:29,413 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:22:29,413 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:22:29,413 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:22:29,413 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:22:29,413 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:22:29,413 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:22:29,413 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:22:29,413 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:22:29,421 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:22:29,447 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 18:22:33,186 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:114 - StreamableHTTP session manager shutting down
+2025-10-09 18:22:35,038 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 18:22:35,041 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 18:22:35,041 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 18:22:35,041 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 18:22:35,042 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 18:22:35,042 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 18:22:35,042 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 18:22:35,042 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 18:22:35,042 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 18:22:35,049 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 18:22:35,074 - INFO - mcp.server.streamable_http_manager - streamable_http_manager:110 - StreamableHTTP session manager started
+2025-10-09 22:11:45,528 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 22:11:45,532 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 22:11:45,532 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 22:11:45,532 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 22:11:45,533 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 22:11:45,533 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 22:11:45,533 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 22:11:45,533 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 22:11:45,533 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 22:11:45,539 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 22:11:45,539 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 22:11:45,539 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 22:11:45,539 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 22:11:45,539 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 22:11:45,539 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 22:11:45,539 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 22:11:45,539 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 22:11:45,593 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 22:11:45,594 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x11c9e92b0>
+2025-10-09 22:11:45,594 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 22:11:45,595 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 22:11:45,595 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 22:11:45,595 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 22:11:45,595 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 22:11:45,601 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 14:11:45 GMT')])
+2025-10-09 22:11:45,602 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 22:11:45,602 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 22:11:45,602 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 22:11:45,602 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 22:11:45,602 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 22:11:45,602 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 22:11:45,602 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 22:12:13,117 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 22:12:13,121 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'EchoServer'
+2025-10-09 22:12:13,121 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 22:12:13,121 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 22:12:13,121 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 22:12:13,121 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 22:12:13,121 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 22:12:13,121 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 22:12:13,121 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 22:12:13,128 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Demo'
+2025-10-09 22:12:13,128 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 22:12:13,128 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 22:12:13,129 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 22:12:13,129 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 22:12:13,129 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 22:12:13,129 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 22:12:13,129 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 22:12:13,181 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 22:12:13,183 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1294e92b0>
+2025-10-09 22:12:13,183 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 22:12:13,183 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 22:12:13,183 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 22:12:13,183 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 22:12:13,183 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 22:12:13,191 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 14:12:12 GMT')])
+2025-10-09 22:12:13,191 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 22:12:13,192 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 22:12:13,192 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 22:12:13,192 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 22:12:13,192 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 22:12:13,192 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 22:12:13,192 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 22:12:13,199 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 22:12:13,215 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-10-09 22:12:15,338 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x1297447d0>
+2025-10-09 22:12:15,339 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type ListResourcesRequest
+2025-10-09 22:12:15,339 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type ListResourcesRequest
+2025-10-09 22:12:15,339 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:105 - Listing resources
+2025-10-09 22:12:15,340 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 22:12:19,075 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x129744cd0>
+2025-10-09 22:12:19,076 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type ListToolsRequest
+2025-10-09 22:12:19,076 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type ListToolsRequest
+2025-10-09 22:12:19,076 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 22:58:40,490 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 22:58:40,547 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 22:58:40,548 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1205ac830>
+2025-10-09 22:58:40,548 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 22:58:40,548 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 22:58:40,548 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 22:58:40,548 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 22:58:40,548 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 22:58:40,555 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Thu, 09 Oct 2025 14:58:40 GMT')])
+2025-10-09 22:58:40,556 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 22:58:40,556 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 22:58:40,556 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 22:58:40,556 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 22:58:40,556 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 22:58:40,556 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 22:58:40,556 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 22:58:40,573 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 22:58:40,577 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Content'
+2025-10-09 22:58:40,577 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 22:58:40,577 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 22:58:40,577 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 22:58:40,577 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 22:58:40,577 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 22:58:40,577 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 22:58:40,577 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 22:58:57,916 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 22:58:57,973 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 22:58:57,974 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x11eaac830>
+2025-10-09 22:58:57,974 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 22:58:57,975 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 22:58:57,975 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 22:58:57,975 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 22:58:57,975 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 22:58:57,983 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 14:58:57 GMT')])
+2025-10-09 22:58:57,983 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 22:58:57,983 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 22:58:57,983 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 22:58:57,983 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 22:58:57,983 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 22:58:57,983 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 22:58:57,983 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 22:58:58,023 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 22:58:58,027 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Content'
+2025-10-09 22:58:58,028 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 22:58:58,028 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 22:58:58,028 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 22:58:58,028 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 22:58:58,028 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 22:58:58,028 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 22:58:58,028 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 22:58:58,048 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 22:58:58,065 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-10-09 22:59:00,202 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x11ed5c7d0>
+2025-10-09 22:59:00,203 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type ListResourcesRequest
+2025-10-09 22:59:00,203 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type ListResourcesRequest
+2025-10-09 22:59:00,203 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:105 - Listing resources
+2025-10-09 22:59:00,203 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 22:59:02,266 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x11ed5cf50>
+2025-10-09 22:59:02,267 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type ListResourceTemplatesRequest
+2025-10-09 22:59:02,267 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type ListResourceTemplatesRequest
+2025-10-09 22:59:02,267 - DEBUG - mcp.server.fastmcp.resources.resource_manager - resource_manager:110 - Listing templates
+2025-10-09 22:59:02,268 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:04:47,092 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x11ed289d0>
+2025-10-09 23:04:47,094 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type ListToolsRequest
+2025-10-09 23:04:47,094 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type ListToolsRequest
+2025-10-09 23:04:47,098 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:04:55,316 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x11ed290f0>
+2025-10-09 23:04:55,317 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type CallToolRequest
+2025-10-09 23:04:55,317 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type CallToolRequest
+2025-10-09 23:04:55,321 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:06:30,921 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 23:06:30,979 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 23:06:30,981 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1236acad0>
+2025-10-09 23:06:30,981 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 23:06:30,981 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 23:06:30,981 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 23:06:30,981 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 23:06:30,981 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 23:06:30,990 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Thu, 09 Oct 2025 15:06:30 GMT')])
+2025-10-09 23:06:30,990 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 23:06:30,990 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 23:06:30,990 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 23:06:30,990 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 23:06:30,990 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 23:06:30,990 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 23:06:30,990 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 23:06:31,003 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 23:06:31,007 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Content'
+2025-10-09 23:06:31,007 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 23:06:31,007 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 23:06:31,007 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 23:06:31,007 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 23:06:31,007 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 23:06:31,007 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 23:06:31,007 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 23:06:46,779 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 23:06:46,834 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2025-10-09 23:06:46,836 - DEBUG - httpcore.connection - _trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1108acad0>
+2025-10-09 23:06:46,836 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.started request=<Request [b'GET']>
+2025-10-09 23:06:46,836 - DEBUG - httpcore.http11 - _trace:47 - send_request_headers.complete
+2025-10-09 23:06:46,836 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.started request=<Request [b'GET']>
+2025-10-09 23:06:46,836 - DEBUG - httpcore.http11 - _trace:47 - send_request_body.complete
+2025-10-09 23:06:46,836 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.started request=<Request [b'GET']>
+2025-10-09 23:06:46,845 - DEBUG - httpcore.http11 - _trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Thu, 09 Oct 2025 15:06:46 GMT')])
+2025-10-09 23:06:46,845 - INFO - httpx - _client:1025 - HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2025-10-09 23:06:46,845 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.started request=<Request [b'GET']>
+2025-10-09 23:06:46,845 - DEBUG - httpcore.http11 - _trace:47 - receive_response_body.complete
+2025-10-09 23:06:46,845 - DEBUG - httpcore.http11 - _trace:47 - response_closed.started
+2025-10-09 23:06:46,845 - DEBUG - httpcore.http11 - _trace:47 - response_closed.complete
+2025-10-09 23:06:46,845 - DEBUG - httpcore.connection - _trace:47 - close.started
+2025-10-09 23:06:46,845 - DEBUG - httpcore.connection - _trace:47 - close.complete
+2025-10-09 23:06:46,867 - INFO - root - mysql:55 - 成功连接到 MySQL 数据库: prompts
+2025-10-09 23:06:46,871 - DEBUG - mcp.server.lowlevel.server - server:157 - Initializing server 'Content'
+2025-10-09 23:06:46,871 - DEBUG - mcp.server.lowlevel.server - server:414 - Registering handler for ListToolsRequest
+2025-10-09 23:06:46,871 - DEBUG - mcp.server.lowlevel.server - server:486 - Registering handler for CallToolRequest
+2025-10-09 23:06:46,872 - DEBUG - mcp.server.lowlevel.server - server:281 - Registering handler for ListResourcesRequest
+2025-10-09 23:06:46,872 - DEBUG - mcp.server.lowlevel.server - server:316 - Registering handler for ReadResourceRequest
+2025-10-09 23:06:46,872 - DEBUG - mcp.server.lowlevel.server - server:243 - Registering handler for PromptListRequest
+2025-10-09 23:06:46,872 - DEBUG - mcp.server.lowlevel.server - server:265 - Registering handler for GetPromptRequest
+2025-10-09 23:06:46,872 - DEBUG - mcp.server.lowlevel.server - server:301 - Registering handler for ListResourceTemplatesRequest
+2025-10-09 23:06:46,890 - DEBUG - asyncio - selector_events:64 - Using selector: KqueueSelector
+2025-10-09 23:06:46,904 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-10-09 23:06:50,343 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x110a5c690>
+2025-10-09 23:06:50,344 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type ListToolsRequest
+2025-10-09 23:06:50,344 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type ListToolsRequest
+2025-10-09 23:06:50,345 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:06:57,642 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x110a5ce10>
+2025-10-09 23:06:57,642 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type CallToolRequest
+2025-10-09 23:06:57,642 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type CallToolRequest
+2025-10-09 23:06:57,643 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:07:01,072 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x10c76f950>
+2025-10-09 23:07:01,074 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type CallToolRequest
+2025-10-09 23:07:01,074 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type CallToolRequest
+2025-10-09 23:07:01,076 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:07:16,206 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x110a30770>
+2025-10-09 23:07:16,207 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type ListPromptsRequest
+2025-10-09 23:07:16,207 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type ListPromptsRequest
+2025-10-09 23:07:16,207 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:07:18,314 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x1108b2c30>
+2025-10-09 23:07:18,314 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type GetPromptRequest
+2025-10-09 23:07:18,314 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type GetPromptRequest
+2025-10-09 23:07:18,314 - ERROR - mcp.server.fastmcp.server - server:1028 - Error getting prompt review_code
+Traceback (most recent call last):
+  File "/Users/zhaoxuefeng/GitHub/prompt_writing_assistant/.venv/lib/python3.13/site-packages/mcp/server/fastmcp/server.py", line 1021, in get_prompt
+    messages = await prompt.render(arguments, context=self.get_context())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhaoxuefeng/GitHub/prompt_writing_assistant/.venv/lib/python3.13/site-packages/mcp/server/fastmcp/prompts/base.py", line 149, in render
+    raise ValueError(f"Missing required arguments: {missing}")
+ValueError: Missing required arguments: {'code'}
+2025-10-09 23:07:18,317 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:07:24,482 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x1108817b0>
+2025-10-09 23:07:24,482 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type GetPromptRequest
+2025-10-09 23:07:24,482 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type GetPromptRequest
+2025-10-09 23:07:24,482 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:07:34,136 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x110883130>
+2025-10-09 23:07:34,136 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type PingRequest
+2025-10-09 23:07:34,136 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type PingRequest
+2025-10-09 23:07:34,136 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent
+2025-10-09 23:07:38,808 - DEBUG - mcp.server.lowlevel.server - server:627 - Received message: <mcp.shared.session.RequestResponder object at 0x110a3c150>
+2025-10-09 23:07:38,809 - INFO - mcp.server.lowlevel.server - server:664 - Processing request of type PingRequest
+2025-10-09 23:07:38,809 - DEBUG - mcp.server.lowlevel.server - server:666 - Dispatching request of type PingRequest
+2025-10-09 23:07:38,809 - DEBUG - mcp.server.lowlevel.server - server:713 - Response sent

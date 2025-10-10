@@ -1,4 +1,4 @@
-from db_help.mysql import MySQLManagerWithVersionControler
+# from db_help.mysql import MySQLManagerWithVersionControler
 from db_help.qdrant import QdrantManager
 from pydantic import BaseModel
 from datetime import datetime
@@ -7,6 +7,13 @@ from prompt_writing_assistant.prompt_helper import Intel, IntellectType
 from prompt_writing_assistant.utils import extract_
 from enum import Enum
 import json
+
+from prompt_writing_assistant.database import Base, Prompt
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker, declarative_base
+
+
+
 
 intel = Intel(host = "127.0.0.1",
               user = 'root',
@@ -21,18 +28,23 @@ class TextType(Enum):
     Tips = 2
     Experience = 3
 
+
+
 class ContentManager():
     def __init__(self,host=None, user=None, password=None, database=None):
         """
         """
         self.table_name = "content"
-        self.mysql = MySQLManagerWithVersionControler(
-            host = host,
-            user = user,
-            password = password,
-            database = database,
-            select = ["name", "version", "timestamp", "content", "type","embed_name_id"]
-        )
+        database_url = "mysql+pymysql://root:1234@localhost:3306/prompts"
+        self.engine = create_engine(database_url, echo=True) # echo=True 仍然会打印所有执行的 SQL 语句
+        # self.mysql = MySQLManagerWithVersionControler(
+        #     host = host,
+        #     user = user,
+        #     password = password,
+        #     database = database,
+        #     select = ["name", "version", "timestamp", "content", "type","embed_name_id"]
+        # )
+        Base.metadata.create_all(self.engine)
         self.qdrant = QdrantManager(host = "localhost")
         self.neo = None
 
@@ -76,12 +88,27 @@ name 后面加一个4位随机数字防止重复
         if isinstance(type,TextType):
             type = type.value
 
-        self.mysql.save_content(table_name=self.table_name,
-                                data = {'name': name,
-                                        "embed_name_id": embed_name_id,
-                                        'timestamp': datetime.now(),
-                                        "content":text,
-                                        "type":type})
+
+        # self.mysql.save_content(table_name=self.table_name,
+        #                         data = {'name': name,
+        #                                 "embed_name_id": embed_name_id,
+        #                                 'timestamp': datetime.now(),
+        #                                 "content":text,
+        #                                 "type":type})
+
+        with create_session(self.engine) as session:
+            Prompt(prompt_id = ,
+                   version = ,
+                   timestamp = ,
+                   prompt = ,
+                   use_case = ,
+                   )
+            user1 = User(name='Alice', email='alice@example.com')
+            user2 = User(name='Bob', email='bob@example.com')
+            user3 = User(name='Charlie', email='charlie@example.com')
+            session.add(user1)
+            session.add_all([user2, user3]) # 可以一次添加多个对象
+            session.commit() # 提交事务，将数据写入数据库
 
         # 2 存入到qdrant中
         self.qdrant.update(self.table_name,
