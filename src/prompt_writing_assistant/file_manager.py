@@ -15,7 +15,6 @@ from prompt_writing_assistant.utils import create_session
 from prompt_writing_assistant.database import Content
 
 import os
-os.getenv("database_url")
 intel = Intel(database_url = os.getenv("database_url"))
         
 class TextType(Enum):
@@ -25,7 +24,7 @@ class TextType(Enum):
     Experience = 3
 
 class ContentManager():
-    def __init__(self,host=None, user=None, password=None, database=None):
+    def __init__(self):
         """
         """
         self.table_name = "content"
