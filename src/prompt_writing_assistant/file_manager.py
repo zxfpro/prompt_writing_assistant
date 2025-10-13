@@ -11,40 +11,24 @@ import json
 from prompt_writing_assistant.database import Base, Prompt
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base
+from prompt_writing_assistant.utils import create_session
+from prompt_writing_assistant.database import Content
 
-
-
-
-intel = Intel(host = "127.0.0.1",
-              user = 'root',
-              password = "1234",
-              database = "prompts",
-              table_name ="prompts_data"
-              )
-
+import os
+os.getenv("database_url")
+intel = Intel(database_url = os.getenv("database_url"))
+        
 class TextType(Enum):
     Code = 0
     Prompt = 1
     Tips = 2
     Experience = 3
 
-
-
 class ContentManager():
     def __init__(self,host=None, user=None, password=None, database=None):
         """
         """
         self.table_name = "content"
-        database_url = "mysql+pymysql://root:1234@localhost:3306/prompts"
-        self.engine = create_engine(database_url, echo=True) # echo=True 仍然会打印所有执行的 SQL 语句
-        # self.mysql = MySQLManagerWithVersionControler(
-        #     host = host,
-        #     user = user,
-        #     password = password,
-        #     database = database,
-        #     select = ["name", "version", "timestamp", "content", "type","embed_name_id"]
-        # )
-        Base.metadata.create_all(self.engine)
         self.qdrant = QdrantManager(host = "localhost")
         self.neo = None
 
@@ -88,26 +72,14 @@ name 后面加一个4位随机数字防止重复
         if isinstance(type,TextType):
             type = type.value
 
-
-        # self.mysql.save_content(table_name=self.table_name,
-        #                         data = {'name': name,
-        #                                 "embed_name_id": embed_name_id,
-        #                                 'timestamp': datetime.now(),
-        #                                 "content":text,
-        #                                 "type":type})
-
-        with create_session(self.engine) as session:
-            Prompt(prompt_id = ,
-                   version = ,
-                   timestamp = ,
-                   prompt = ,
-                   use_case = ,
-                   )
-            user1 = User(name='Alice', email='alice@example.com')
-            user2 = User(name='Bob', email='bob@example.com')
-            user3 = User(name='Charlie', email='charlie@example.com')
-            session.add(user1)
-            session.add_all([user2, user3]) # 可以一次添加多个对象
+        with create_session(intel.engine) as session:
+            cont = Content(name = name,
+                    embed_name_id = embed_name_id,
+                    timestamp = datetime.now(),
+                    content = text,
+                    type = type,
+                    )
+            session.add(cont)
             session.commit() # 提交事务，将数据写入数据库
 
         # 2 存入到qdrant中
@@ -132,11 +104,10 @@ name 后面加一个4位随机数字防止重复
         pass
 
     def search(self,name:str,version = None):
-        result = self.mysql.get_content_by_version(
-            target_name = name,
-            table_name = self.table_name,
-            target_version=version,
-        )
+        with create_session(intel.engine) as session:
+            target_content = session.query(Content).filter_by(name = name,
+                                             version = version).frist()
+        result = target_content.content
         return result
     
     def similarity(self,content: str,limit: int =2):

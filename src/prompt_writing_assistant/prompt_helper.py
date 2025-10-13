@@ -17,6 +17,9 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base
 from prompt_writing_assistant.utils import create_session
 
+from contextlib import contextmanager
+
+
 evals_prompt = '''
 你是一名高级内容评审AI。你的任务是根据提供的多方面信息，对大模型生成的内容进行全面、客观的评价，并给出具体的、可操作的改进意见。
 
@@ -125,9 +128,9 @@ class IntellectType(Enum):
 
 class Intel():
     def __init__(self,
-                 database_url = "mysql+pymysql://root:1234@localhost:3306/prompts",
+                 database_url = "",
                 ):
-
+        database_url = database_url or os.getenv("database_url")
         self.engine = create_engine(database_url, echo=True) # echo=True 仍然会打印所有执行的 SQL 语句
         Base.metadata.create_all(self.engine)
         self.bx = BianXieAdapter()
@@ -499,6 +502,97 @@ class Intel():
         return outer_packing
 
 
+
+    def intellect_3(self,
+                    input: dict | str,
+                    type: IntellectType,
+                    prompt_id: str,
+                    demand: str = None,
+                    version: str = None,
+                    ):
+        """
+        # 虽然严格, 但更有优势, 装饰的一定要有input
+        1 标定入参必须是第一个位置
+        2 train ,inference ,summery,
+
+        这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
+        函数中是对大模型输出的后处理
+        """
+
+        input_data = input
+        output_ = None
+        if isinstance(input_data,dict):
+            input_ = output_ = json.dumps(input_data,ensure_ascii=False)
+        elif isinstance(input_data,str):
+            input_ = output_ = input_data
+
+        prompt, states, before_input = self.get_prompts_from_sql(prompt_id,version,
+                                            return_use_case = True)
+
+        if type.value == "train":
+            # 注意, 这里的调整要求使用最初的那个输入, 最好一口气调整好
+            if states == 0:
+                input_prompt = "user:\n" + demand + "\n----input----\n" + input_
+            elif states == 1:
+                chat_history = prompt
+                
+                if input_ == before_input: # 输入没变, 说明还是针对同一个输入进行讨论
+                    if not demand:
+                        # warning 这个分支不应该出现, 这里加入warning 
+                        input_prompt = chat_history + "请再试一次"
+                    else:
+                        input_prompt = chat_history + "\nuser:" + demand
+            
+                else:
+                    if not demand:
+                        input_prompt = chat_history + "\n----input-----\n" + input_
+                    else:
+                        input_prompt = chat_history + "\nuser:" + demand + "\n-----input----\n" + input_
+            
+            ai_result = self.bx.product(input_prompt)
+            chat_history = input_prompt + "\nassistant:\n" + ai_result # 用聊天记录作为完整提示词
+            self.save_prompt_by_sql(prompt_id, chat_history,
+                            input_data = input_)
+            output_ = ai_result
+
+        elif type.value == "inference":
+            if states == 1:
+                chat_history = prompt
+                ai_result = self.bx.product(chat_history + "\n-----input----\n" +  input_)
+                self.save_use_case_by_sql(prompt_id,
+                                    use_case = input_,
+                                    solution = ""
+                                    )
+                output_ = ai_result
+            else:
+                raise AssertionError("必须要已经存在一个prompt 否则无法总结")
+
+        elif type.value == "summary":
+            if states == 1:
+                system_prompt_created_prompt = """
+很棒, 我们已经达成了某种默契, 我们之间合作无间, 但是, 可悲的是, 当我关闭这个窗口的时候, 你就会忘记我们之间经历的种种磨合, 这是可惜且心痛的, 所以你能否将目前这一套处理流程结晶成一个优质的prompt 这样, 我们下一次只要将prompt输入, 你就能想起我们今天的磨合过程,
+对了,我提示一点, 这个prompt的主角是你, 也就是说, 你在和未来的你对话, 你要教会未来的你今天这件事, 是否让我看懂到时其次
+
+只要输出提示词内容即可, 不需要任何的说明和解释
+"""
+                system_reuslt = self.bx.product(prompt + system_prompt_created_prompt)
+                # s_prompt = extract_prompt(system_reuslt)
+                s_prompt = extract_(system_reuslt,pattern_key=r"prompt")
+                if s_prompt:
+                    self.save_prompt_by_sql(prompt_id, s_prompt,
+                                    input_data = " summary ")
+                else:
+                    self.save_prompt_by_sql(prompt_id, system_reuslt,
+                                    input_data = " summary ")
+
+
+            else:
+                raise AssertionError("必须要已经存在一个prompt 否则无法总结")
+
+        return output_
+
+
+
     def prompt_finetune_to_sql(
             self,
             prompt_id:str,
@@ -506,7 +600,7 @@ class Intel():
             demand: str = "",
         ):
         """
-        让大模型微调已经存在的system_prompt
+        让大模型微调已经存在的 system_prompt
         """
         prompt, _ = self.get_prompts_from_sql(prompt_id = prompt_id,version = version)
         if demand:

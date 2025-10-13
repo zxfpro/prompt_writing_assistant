@@ -1,5 +1,5 @@
 anyio>=4.10.0
-db-help==0.1.5
+db-help>=0.1.5
 llama-index-vector-stores-qdrant>=0.6.1
 llmada>=1.1.1
 mcp[cli]>=1.16.0

@@ -15,7 +15,7 @@ class Test_Intel():
 
     @pytest.fixture
     def intels(self):
-        intels = Intel()
+        intels = Intel(database_url = "mysql+pymysql://vc_agent:aihuashen%402024@rm-2ze0q808gqplb1tz72o.mysql.rds.aliyuncs.com/digital-life2")
         return intels
     
     def test_get_prompts(self,intels):

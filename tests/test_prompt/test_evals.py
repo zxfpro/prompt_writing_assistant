@@ -76,8 +76,19 @@ class BEvals(Base_Evals):
         
 
 def test_evals_for_auto2():
-    print(111)
-    from db_help.mysql import MySQLManager
+    from prompt_writing_assistant.prompt_helper import Intel,IntellectType
+    from prompt_writing_assistant.utils import create_session
+    from prompt_writing_assistant.database import UseCase
+    intels = Intel()
+
+    with create_session(intels.engine) as session:
+        result = session.query(UseCase).filter(
+            Prompt.prompt_id == target_prompt_id
+        ).order_by(
+            Prompt.timestamp.desc(),
+            Prompt.version.desc()
+        ).first()
+
 
     db_manager = MySQLManager()
     table_name = "use_case"
