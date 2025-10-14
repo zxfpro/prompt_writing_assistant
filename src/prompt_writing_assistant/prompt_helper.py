@@ -303,7 +303,13 @@ class Intel():
             session.commit() # 提交事务，将数据写入数据库
 
 
-    async def aintellect_function(self,input_,demand,type,prompt_id,version,inference_save_case = True):
+    async def aintellect_function(self,input_,demand,
+                                  type,
+                                  prompt_id,
+                                  version,
+                                  inference_save_case = True,
+                                  output_format = ""
+                                  ):
         """
         输入数据
         变更需求
@@ -317,7 +323,8 @@ class Intel():
                                             return_use_case = True)
         
         if states == 0:
-            input_prompt = "user:\n" + demand + "\n----input----\n" + input_
+            # input_prompt = "user:\n" + demand +  "\n----input----\n" + input_
+            input_prompt = "user:\n" + demand + output_format + "\n----input----\n" + input_
             ai_result = await self.llm.aproduct(input_prompt)
             chat_history = input_prompt + "\nassistant:\n" + ai_result # 用聊天记录作为完整提示词
             self.save_prompt_by_sql(prompt_id, chat_history,
@@ -326,20 +333,15 @@ class Intel():
 
         else:
             if type.value == "train":
+                assert demand
                 # 注意, 这里的调整要求使用最初的那个输入, 最好一口气调整好
                 chat_history = prompt
                 if input_ == before_input: # 输入没变, 说明还是针对同一个输入进行讨论
-                    if not demand:
-                        # warning 这个分支不应该出现, 这里加入warning 
-                        input_prompt = chat_history + "请再试一次"
-                    else:
-
-                        input_prompt = chat_history + "\nuser:" + demand
+                    # input_prompt = chat_history + "\nuser:" + demand
+                    input_prompt = chat_history + "\nuser:" + demand + output_format 
                 else:
-                    if not demand:
-                        input_prompt = chat_history + "\n----input-----\n" + input_
-                    else:
-                        input_prompt = chat_history + "\nuser:" + demand + "\n-----input----\n" + input_
+                    # input_prompt = chat_history + "\nuser:" + demand + "\n-----input----\n" + input_
+                    input_prompt = chat_history + "\nuser:" + demand + output_format  + "\n-----input----\n" + input_
             
                 ai_result = await self.llm.aproduct(input_prompt)
                 chat_history = input_prompt + "\nassistant:\n" + ai_result # 用聊天记录作为完整提示词
@@ -348,7 +350,7 @@ class Intel():
                 output_ = ai_result
 
             elif type.value == "inference":
-                ai_result = await self.llm.aproduct(prompt + "\n-----input----\n" +  input_)
+                ai_result = await self.llm.aproduct(prompt + output_format + "\n-----input----\n" +  input_)
                 if inference_save_case:
                     self.save_use_case_by_sql(prompt_id,
                                         use_case = input_,
@@ -665,6 +667,41 @@ class Intel():
             type = type,
             prompt_id = prompt_id,
             version=version
+            )
+
+        return output_
+
+    async def aintellect_2(self,
+                    input: dict | str,
+                    type: IntellectType,
+                    prompt_id: str,
+                    demand: str = None,
+                    version: str = None,
+                    output_format: str = "",
+                    ):
+        """
+        # 虽然严格, 但更有优势, 装饰的一定要有input
+        1 标定入参必须是第一个位置
+        2 train ,inference ,summery,
+
+        这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
+        函数中是对大模型输出的后处理
+        """
+
+        input_data = input
+        output_ = None
+        if isinstance(input_data,dict):
+            input_ = output_ = json.dumps(input_data,ensure_ascii=False)
+        elif isinstance(input_data,str):
+            input_ = output_ = input_data
+
+        output_ = await self.aintellect_function(
+            input_,
+            demand = demand,
+            type = type,
+            prompt_id = prompt_id,
+            version=version,
+            output_format=output_format,
             )
 
         return output_
