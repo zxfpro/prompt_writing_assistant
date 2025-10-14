@@ -168,6 +168,12 @@ class UseCase(Base):
         comment="用例"
     )
 
+    output = Column(
+        Text,               # TEXT 类型，适用于长文本
+        nullable=False,     # 不能为空
+        comment="AI输出"
+    )
+
     # use_case (text, nullable)
     # 你的属性表中 use_case 为 text, false (not null, 即 nullable=True), NULL (default value), '用例' (comment)
     solution = Column(

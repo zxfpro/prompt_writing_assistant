@@ -51,6 +51,42 @@ def test_evals_for_auto():
     result = aeval.get_success_rate_for_auto(test_cases)
     print(result,'result')
 
+
+from llmada.core import BianXieAdapter
+
+class CCEvals(Base_Evals):
+    def __init__(self):
+        self.MIN_SUCCESS_RATE = 80.0 # 这里定义通过阈值, 高于该比例则通过
+
+    def _assert_eval_function(self,params):
+
+        bx = BianXieAdapter()
+        result = bx.product(params[0])
+        assert result == params[-1]
+
+    def rule_evals(self):
+        return super().rule_evals()
+    
+    def global_evals(self):
+        pass
+
+    def local_evals(self):
+        pass
+        
+
+def test_evals():
+    cceval = CCEvals()
+    test_cases = [
+            ("这是一个兔子 这是2只鸡", "一共8条腿"),      # Pass
+            ("这是两个兔子 这是2只鸡", "一共12条腿"),      # Pass
+            ("这是三个兔子 这是1只鸡", "一共14条腿"),      # Pass
+            ("这是一个兔子 这是n只鸡", "我不知道"),      # Pass
+
+        ]
+    cceval.get_success_rate(test_cases)
+
+
+
 # 一个小环节 就要定义一个评价类
 
 class BEvals(Base_Evals):

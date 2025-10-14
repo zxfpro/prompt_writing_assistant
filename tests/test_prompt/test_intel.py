@@ -15,12 +15,21 @@ class Test_Intel():
 
     @pytest.fixture
     def intels(self):
-        intels = Intel(database_url = "mysql+pymysql://vc_agent:aihuashen%402024@rm-2ze0q808gqplb1tz72o.mysql.rds.aliyuncs.com/digital-life2")
+        intels = Intel()
         return intels
+    
+    def test_save_prompts(self,intels):
+
+        result = intels.save_prompt_by_sql(
+            prompt_id = "fsdf",
+            new_prompt = "",
+            input_data = "",
+                )
+        print(result)
     
     def test_get_prompts(self,intels):
         result = intels.get_prompts_from_sql(
-            prompt_id = "数字人生王者001")
+            prompt_id = "intel_summary")
         print(result)
 
     def test_get_prompts_version(self,intels):
@@ -29,6 +38,8 @@ class Test_Intel():
             version="1.1"
             )
         print(result)
+
+        
 
     def test_intellect(self,intels):
         import json
