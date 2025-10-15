@@ -131,6 +131,20 @@ class Prompt(Base):
         comment="用例"      # 列注释
     )
 
+    # 执行类型
+    type = Column(
+        String(255),        # VARCHAR 类型，长度 255
+        nullable=False,     # 不能为空    # 必须是唯一的，这会创建唯一索引
+        comment="type train inference summary"
+    )
+
+    demand = Column(
+        Text,
+        nullable=True,      # 可以为空 (因为你的表格中 Not Null 为 false)
+        comment="提示词改动需求"      # 列注释
+    )
+
+
     # 定义 __repr__ 方法以便打印对象时有清晰的表示
     def __repr__(self):
         return (f"<Prompt(id={self.id}, prompt_id='{self.prompt_id}', "

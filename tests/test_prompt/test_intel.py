@@ -22,10 +22,20 @@ class Test_Intel():
 
         result = intels.save_prompt_by_sql(
             prompt_id = "fsdf",
-            new_prompt = "",
+            new_prompt = "112334",
             input_data = "",
                 )
         print(result)
+
+    def test_push_info_by_use(self,intels):
+
+        result = intels.push_info_by_use(
+            prompt_id = "fsdf",
+            demand = "这是一个不错的角度",
+                )
+        print(result)
+
+        # save_prompt_by_control
     
     def test_get_prompts(self,intels):
         result = intels.get_prompts_from_sql(
@@ -117,6 +127,16 @@ class Test_Intel():
 
         result = prompts(input = {"text":"你好, 我的电话号码是12343213123, 身份证是2454532345"}
                         )
+        print(result,'result')
+
+    def test_intellect_3_11(self,intels):
+
+        result = intels.intellect_3_11(input =  "你好",
+                              prompt_id = "fsdf"
+                           )
+ 
+
+
         print(result,'result')
 
     def test_prompt_finetune_to_sql(self,intels):

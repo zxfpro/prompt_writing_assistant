@@ -149,25 +149,25 @@ class Intel():
             self.llm = BianXieAdapter()
             
         
-    def _get_latest_prompt_version(self,target_prompt_id):
+    def _get_latest_prompt_version(self,target_prompt_id,session):
         """
         获取指定 prompt_id 的最新版本数据，通过创建时间判断。
         """
-        with create_session(self.engine) as session:
-            result = session.query(Prompt).filter(
-                Prompt.prompt_id == target_prompt_id
-            ).order_by(
-                Prompt.timestamp.desc(),
-                Prompt.version.desc()
-            ).first()
+        
+        result = session.query(Prompt).filter(
+            Prompt.prompt_id == target_prompt_id
+        ).order_by(
+            Prompt.timestamp.desc(),
+            Prompt.version.desc()
+        ).first()
 
-            if result:
-                editing_log(f"找到 prompt_id '{target_prompt_id}' 的最新版本 (基于时间): {result.version}")
-            else:
-                editing_log(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
-            return result
+        if result:
+            editing_log(f"找到 prompt_id '{target_prompt_id}' 的最新版本 (基于时间): {result.version}")
+        else:
+            editing_log(f"未找到 prompt_id '{target_prompt_id}' 的任何版本。")
+        return result
 
-    def _get_specific_prompt_version(self,target_prompt_id, target_version):
+    def _get_specific_prompt_version(self,target_prompt_id, target_version,session):
         """
         获取指定 prompt_id 和特定版本的数据。
 
@@ -182,17 +182,15 @@ class Intel():
                         否则返回 None。
         """
 
-        with create_session(self.engine) as session:
-
-            result = session.query(Prompt).filter(
-                Prompt.prompt_id == target_prompt_id,
-                Prompt.version == target_version
-            ).first() # 因为 (prompt_id, version) 是唯一的，所以 first() 足够
-            if result:
-                editing_log(f"找到 prompt_id '{target_prompt_id}', 版本 '{target_version}' 的提示词数据。")
-            else:
-                editing_log(f"未找到 prompt_id '{target_prompt_id}', 版本 '{target_version}' 的提示词数据。")
-            return result
+        result = session.query(Prompt).filter(
+            Prompt.prompt_id == target_prompt_id,
+            Prompt.version == target_version
+        ).first() # 因为 (prompt_id, version) 是唯一的，所以 first() 足够
+        if result:
+            editing_log(f"找到 prompt_id '{target_prompt_id}', 版本 '{target_version}' 的提示词数据。")
+        else:
+            editing_log(f"未找到 prompt_id '{target_prompt_id}', 版本 '{target_version}' 的提示词数据。")
+        return result
 
     def get_prompts_from_sql(self,
                              prompt_id: str,
@@ -201,51 +199,52 @@ class Intel():
         """
         从sql获取提示词
         """
-        # 查看是否已经存在
-        if version:
-            user_by_id_1 = self._get_specific_prompt_version(prompt_id,version)
-            if user_by_id_1:
-                # 如果存在获得
-                # prompt = user_by_id_1.get("prompt")
-                prompt = user_by_id_1.prompt
-                status = 1
-            else:
-                # 否则提示warning 然后调用最新的
-                user_by_id_1 = self._get_latest_prompt_version(prompt_id)
+        with create_session(self.engine) as session:
+            # 查看是否已经存在
+            if version:
+                user_by_id_1 = self._get_specific_prompt_version(prompt_id,version,session=session)
                 if user_by_id_1:
-                    # 打印正在使用什么版本
+                    # 如果存在获得
                     # prompt = user_by_id_1.get("prompt")
                     prompt = user_by_id_1.prompt
                     status = 1
                 else:
-                    # 打印, 没有找到 warning 
+                    # 否则提示warning 然后调用最新的
+                    user_by_id_1 = self._get_latest_prompt_version(prompt_id,session = session)
+                    if user_by_id_1:
+                        # 打印正在使用什么版本
+                        # prompt = user_by_id_1.get("prompt")
+                        prompt = user_by_id_1.prompt
+                        status = 1
+                    else:
+                        # 打印, 没有找到 warning 
+                        # 如果没有则返回空
+                        prompt = ""
+                        status = 0
+                    status = 1
+
+            else:
+                user_by_id_1 = self._get_latest_prompt_version(prompt_id,session = session)
+                if user_by_id_1:
+                    # 如果存在获得
+                    # prompt = user_by_id_1.get("prompt")
+                    prompt = user_by_id_1.prompt
+
+                    status = 1
+                else:
                     # 如果没有则返回空
                     prompt = ""
                     status = 0
-                status = 1
 
-        else:
-            user_by_id_1 = self._get_latest_prompt_version(prompt_id)
-            if user_by_id_1:
-                # 如果存在获得
-                # prompt = user_by_id_1.get("prompt")
-                prompt = user_by_id_1.prompt
-
-                status = 1
+            
+            if not return_use_case:
+                return prompt, status
             else:
-                # 如果没有则返回空
-                prompt = ""
-                status = 0
-
-        
-        if not return_use_case:
-            return prompt, status
-        else:
-            if user_by_id_1:
-                editing_log(user_by_id_1)
-                return prompt, status, user_by_id_1.use_case #user_by_id_1.get('use_case',' 空 ')
-            else:
-                return prompt, status, ' 空 '
+                if user_by_id_1:
+                    editing_log(user_by_id_1)
+                    return prompt, status, user_by_id_1.use_case #user_by_id_1.get('use_case',' 空 ')
+                else:
+                    return prompt, status, ' 空 '
 
 
     def save_prompt_by_sql(self,
@@ -257,27 +256,87 @@ class Intel():
         input_data 指的是输入用例, 可以为空
         """
         # 查看是否已经存在
-        user_by_id_1 = self._get_latest_prompt_version(prompt_id)
-        
-        if user_by_id_1:
-            # 如果存在版本加1
-            version_ori = user_by_id_1.version
-            _, version = version_ori.split(".")
-            version = int(version)
-            version += 1
-            version_ = f"1.{version}"
-
-        else:
-            # 如果不存在版本为1.0
-            version_ = '1.0'
         with create_session(self.engine) as session:
-        
+            user_by_id_1 = self._get_latest_prompt_version(prompt_id,session = session)
+            
+            if user_by_id_1:
+                # 如果存在版本加1
+                version_ori = user_by_id_1.version
+                _, version = version_ori.split(".")
+                version = int(version)
+                version += 1
+                version_ = f"1.{version}"
+
+            else:
+                # 如果不存在版本为1.0
+                version_ = '1.0'
+            
+            
             prompt1 = Prompt(prompt_id=prompt_id, 
-                           version=version_,
-                           timestamp=datetime.now(),
-                           prompt = new_prompt,
-                           use_case = input_data,
-                           )
+                            version=version_,
+                            timestamp=datetime.now(),
+                            prompt = new_prompt,
+                            use_case = input_data,
+                            type = "inference",
+                            demand = ""
+                            )
+
+            session.add(prompt1)
+            session.commit() # 提交事务，将数据写入数据库
+
+    def push_info_by_use(self,prompt_id: str, demand : str):
+
+        """
+        从sql保存提示词
+        推一个train 状态到指定的位置
+
+        将打算修改的状态推上数据库 # 1
+        """
+        # 查看是否已经存在
+        with create_session(self.engine) as session:
+            
+            latest_prompt = self._get_latest_prompt_version(prompt_id,session = session)
+            if latest_prompt:
+                latest_prompt.type = 'train'
+                latest_prompt.demand = demand
+                
+                session.commit() # 提交事务，将数据写入数据库
+            else:
+                return "未找到"
+
+    def save_prompt_by_control(self,
+                           prompt_id: str,
+                           new_prompt: str,
+                           input_data:str = ""):
+        """
+        从sql保存提示词
+        input_data 指的是输入用例, 可以为空
+        """
+        # 查看是否已经存在
+        with create_session(self.engine) as session:
+            user_by_id_1 = self._get_latest_prompt_version(prompt_id,session = session)
+            
+            if user_by_id_1:
+                # 如果存在版本加1
+                version_ori = user_by_id_1.version
+                _, version = version_ori.split(".")
+                version = int(version)
+                version += 1
+                version_ = f"1.{version}"
+
+            else:
+                # 如果不存在版本为1.0
+                version_ = '1.0'
+            
+            
+            prompt1 = Prompt(prompt_id=prompt_id, 
+                            version=version_,
+                            timestamp=datetime.now(),
+                            prompt = new_prompt,
+                            use_case = input_data,
+                            type = "inference",
+                            demand = ""
+                            )
 
             session.add(prompt1)
             session.commit() # 提交事务，将数据写入数据库
@@ -637,6 +696,80 @@ class Intel():
             )
 
         return output_
+    
+    def intellect_3_11(self,
+                    input: dict | str,
+                    prompt_id: str,
+                    version: str = None,
+                    ):
+        """
+        # 虽然严格, 但更有优势, 装饰的一定要有input
+        1 标定入参必须是第一个位置
+        2 train ,inference ,summery,
+
+        这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
+        函数中是对大模型输出的后处理
+        """
+
+        input_data = input
+        output_ = None
+        if isinstance(input_data,dict):
+            input_ = output_ = json.dumps(input_data,ensure_ascii=False)
+        elif isinstance(input_data,str):
+            input_ = output_ = input_data
+
+        # 查数据库, 获取最新提示词对象
+        with create_session(self.engine) as session:
+            result_obj = self._get_latest_prompt_version(prompt_id,session=session)
+
+            print(result_obj.version,"version")
+            prompt = result_obj.prompt
+            if result_obj.type == "inference":
+                # 直接推理即可
+                ai_result = self.llm.product(prompt + "\n-----input----\n" +  input_)
+
+            elif result_obj.type == "train":
+                assert result_obj.demand # 如果type = train 且 demand 是空 则报错
+                # 则训练推广
+
+                # 新版本 默人修改会 inference 状态
+                chat_history = prompt
+                before_input = result_obj.use_case
+                demand = result_obj.demand
+            
+                chat_history = prompt
+                if input_ == before_input: # 输入没变, 说明还是针对同一个输入进行讨论
+                    if not demand:
+                        # warning 这个分支不应该出现, 这里加入warning 
+                        input_prompt = chat_history + "请再试一次"
+                    else:
+
+                        input_prompt = chat_history + "\nuser:" + demand
+            
+                else:
+                    if not demand:
+                        input_prompt = chat_history + "\n----input-----\n" + input_
+                    else:
+                        input_prompt = chat_history + "\nuser:" + demand + "\n-----input----\n" + input_
+            
+                ai_result = self.llm.product(input_prompt)
+                chat_history = input_prompt + "\nassistant:\n" + ai_result # 用聊天记录作为完整提示词
+                self.save_prompt_by_sql(prompt_id, chat_history,
+                                input_data = input_)
+                output_ = ai_result
+
+
+            
+
+
+        output_ = self.intellect_function(input_,
+            demand = demand,
+            type = type,
+            prompt_id = prompt_id,
+            version=version
+            )
+
+        return output_
 
     async def aintellect(self,
                     input: dict | str,
@@ -706,6 +839,7 @@ class Intel():
 
         return output_
 
+
     async def aintellect_4_stream(self,
                     input: dict | str,
                     type: IntellectType,
@@ -738,6 +872,37 @@ class Intel():
         for i in output_:
             print(i)
 
+    async def aintellect_controler(self,
+                    input: dict | str,
+                    type: IntellectType,
+                    prompt_id: str,
+                    demand: str = None,
+                    version: str = None,
+                    ):
+        """
+        # 虽然严格, 但更有优势, 装饰的一定要有input
+        1 标定入参必须是第一个位置
+        2 train ,inference ,summery,
+
+        这个装饰器,在输入函数的瞬间完成大模型对于第一位参数的转变, 可以直接return 返回, 也可以在函数继续进行逻辑运行
+        函数中是对大模型输出的后处理
+        """
+
+        input_data = input
+        if isinstance(input_data,dict):
+            input_ = output_ = json.dumps(input_data,ensure_ascii=False)
+        elif isinstance(input_data,str):
+            input_ = output_ = input_data
+
+        output_ = await self.aintellect_stream_function(
+            input_,
+            demand = demand,
+            type = type,
+            prompt_id = prompt_id,
+            version=version
+            )
+        for i in output_:
+            print(i)
 
     def prompt_finetune_to_sql(
             self,
